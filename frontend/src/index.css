@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply text-gray-800 bg-gray-50;
+  }
+}
+
+@layer components {
+  .container-custom {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
+  }
+  
+  .btn-primary {
+    @apply bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-300;
+  }
+  
+  .btn-secondary {
+    @apply bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors duration-300;
+  }
+  
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center;
+  }
+  
+  .card {
+    @apply bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300;
+  }
+}
+
+.swiper-pagination-bullet-active {
+  @apply bg-blue-600;
+}
+
+.swiper-hover-buttons .swiper-button-prev,
+.swiper-hover-buttons .swiper-button-next {
+  opacity: 0;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.swiper-hover-buttons:hover .swiper-button-prev,
+.swiper-hover-buttons:hover .swiper-button-next {
+  opacity: 1;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-size: 18px !important;
+  color: #1a1a1a;
+  font-weight: bold;
+}
+
+.swiper-hover-buttons .swiper-button-prev:hover,
+.swiper-hover-buttons .swiper-button-next:hover {
+  background-color: rgba(255, 255, 255, 1);
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.swiper-button-prev {
+  left: 10px;
+}
+
+.swiper-button-next {
+  right: 10px;
+}
+
+.swiper-pagination-bullet {
+  background: white !important;
+  opacity: 0.7;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1;
+  background: #3b82f6 !important; /* blue-500 */
+}
