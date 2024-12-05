@@ -593,7 +593,7 @@ const brandData = {
         category: 'Scooter',
         engineCC: 124,
         mileage: '50',
-        image: '/suzuki-access-125.png'
+        image: "https://cdn.bikedekho.com/processedimages/suzuki/bs6-access-125/640X309/bs6-access-1256431264fe3a67.jpg"
       },
       {
         id: 6,
