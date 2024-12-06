@@ -362,8 +362,8 @@ function App() {
         exchange_vehicle: formData.exchangeVehicle
       };
 
-      console.log('Sending request to:', `${import.meta.env.VITE_API_URL}/api/quotation`);
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/quotation`, {
+      console.log('Sending request to:', `https://sidhhivinayak-backend.vercel.app/api/quotation`);
+      const response = await fetch(`https://sidhhivinayak-backend.vercel.app/api/quotation`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

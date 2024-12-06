@@ -16,7 +16,7 @@ function Contact() {
     setStatus('loading');
     
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/contact`, {
+      const response = await fetch(`https://sidhhivinayak-backend.vercel.app/api/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
