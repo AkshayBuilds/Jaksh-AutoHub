@@ -7,21 +7,19 @@ from .schemas.Quotation import QuotationForm
 from mangum import Mangum
 
 app = FastAPI()
-
+handler = Mangum(app)
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:5173",  # Development
-        "https://sidhhivinayak.vercel.app",  # Production
-        "https://www.sidhhivinayak.vercel.app"  # Production with www
+        "*",  # Development
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-handler = Mangum(app)
+
 class ContactForm(BaseModel):
     name: str
     phone: str
