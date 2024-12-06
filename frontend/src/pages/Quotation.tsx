@@ -362,7 +362,7 @@ function App() {
         exchange_vehicle: formData.exchangeVehicle
       };
 
-      const response = await fetch("http://localhost:8000/api/quotation", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/quotation`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -373,6 +373,7 @@ function App() {
 
       if (!response.ok) {
         const errorData = await response.json();
+        console.error('Server error:', errorData);
         throw new Error(errorData.detail || "Failed to send quotation");
       }
 
@@ -380,7 +381,7 @@ function App() {
       alert("Quotation sent successfully!");
       
     } catch (error) {
-      console.error("Error:", error);
+      console.error('Network or server error:', error);
       alert(error instanceof Error ? error.message : "Error sending quotation!");
     } finally {
       setLoading(false);
