@@ -4,6 +4,7 @@ from fastapi_mail import FastMail, MessageSchema, MessageType
 from pydantic import BaseModel, EmailStr
 from .config import email_conf
 from .schemas.Quotation import QuotationForm
+from mangum import Mangum
 
 app = FastAPI()
 
@@ -20,6 +21,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+handler = Mangum(app)
 class ContactForm(BaseModel):
     name: str
     phone: str
@@ -37,6 +39,10 @@ class QuotationForm(BaseModel):
     tenure: int
     old_vehicle_details: str
     exchange_vehicle: str
+    
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to Siddhivinayak Backend"}
 
 @app.post("/api/contact")
 async def send_contact_email(contact: ContactForm):
@@ -83,7 +89,8 @@ async def send_contact_email(contact: ContactForm):
     except Exception as e:
         print(f"Error sending email: {str(e)}")  # For debugging
         raise HTTPException(status_code=500, detail=str(e))
-
+ 
+ 
 @app.post("/api/quotation")
 async def submit_quotation(quotation: QuotationForm):
     try:
