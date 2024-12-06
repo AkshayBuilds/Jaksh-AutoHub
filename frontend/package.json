@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "test": "react-scripts test"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.1",
