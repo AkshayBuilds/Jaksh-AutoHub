@@ -345,60 +345,45 @@ function App() {
   };
 
   const handleChange = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); // Prevent default form submission
-    setLoading(true); // Set loading to true
+    event.preventDefault();
+    setLoading(true);
 
-    // Validate form data
-    if (!formData.name || !formData.phone || !formData.email || !formData.brand || !formData.model) {
-        alert("Please fill in all required fields.");
-        setLoading(false); // Reset loading state
-        return;
-    }
-
-    const downPaymentValue = parseFloat(formData.downPayment) || 0;
-
-    // Only check down payment if payment type is loan
-    if (formData.paymentType === 'loan' && downPaymentValue > selectedModelPrice) {
-        alert("Down payment cannot exceed the model price.");
-        setLoading(false); // Reset loading state
-        return;
-    }
-
-    // Prepare the data for submission
-    const processedFormData = {
+    try {
+      const processedFormData = {
         name: formData.name,
         phone: formData.phone,
         email: formData.email,
         brand: formData.brand,
         model: formData.model,
         payment_type: formData.paymentType,
-        down_payment: formData.paymentType === 'cash' ? 0 : downPaymentValue, // Set down payment to 0 for cash
-        tenure: formData.paymentType === 'cash' ? 0 : parseInt(formData.tenure) || 0, // Set tenure to 0 for cash
+        down_payment: Number(formData.downPayment) || 0,
+        tenure: Number(formData.tenure),
         old_vehicle_details: formData.oldVehicleDetails,
-        exchange_vehicle: formData.exchangeVehicle,
-    };
+        exchange_vehicle: formData.exchangeVehicle
+      };
 
-    console.log(processedFormData); // Log to check the data being sent
+      const response = await fetch("http://localhost:8000/api/quotation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(processedFormData)
+      });
 
-    try {
-        const response = await fetch("http://localhost:8000/api/quotation", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(processedFormData)
-        });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || "Failed to send quotation");
+      }
 
-        if (!response.ok) {
-            const errorData = await response.json(); // Get error details
-            throw new Error(errorData.detail || "Failed to send quotation");
-        }
-        alert("Quotation sent successfully!");
+      const data = await response.json();
+      alert("Quotation sent successfully!");
+      
     } catch (error) {
-        console.error("Error:", error);
-        alert("Error sending quotation!");
+      console.error("Error:", error);
+      alert(error instanceof Error ? error.message : "Error sending quotation!");
     } finally {
-        setLoading(false); // Reset loading state after submission
+      setLoading(false);
     }
   };
 

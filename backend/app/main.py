@@ -10,7 +10,10 @@ app = FastAPI()
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # Your frontend URL
+    allow_origins=[
+        "http://localhost:5173",  # Development
+        "https://sidhhivinayak.vercel.app/"  # Production
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -81,17 +84,14 @@ async def send_contact_email(contact: ContactForm):
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/api/quotation")
-async def send_quotation_email(quotation: QuotationForm, request: Request):
+async def submit_quotation(quotation: QuotationForm):
     try:
-        # Log the incoming quotation data for debugging
-        print(f"Received quotation: {quotation.dict()}")
-
-        # Email to admin (you)
+        # Email to admin
         admin_message = MessageSchema(
-            subject=f"New Quotation Form Submission from {quotation.name}",
-            recipients=["amsp604@gmail.com"],  # Your email address
+            subject=f"New Quotation Request from {quotation.name}",
+            recipients=["amsp604@gmail.com"],
             body=f"""
-            New quotation form submission:
+            New quotation request:
             
             Name: {quotation.name}
             Email: {quotation.email}
@@ -107,16 +107,32 @@ async def send_quotation_email(quotation: QuotationForm, request: Request):
             subtype=MessageType.plain
         )
 
-        fm = FastMail(email_conf)
-        
-        # Log before sending the email
-        print("Sending quotation email to admin...")
-        
-        await fm.send_message(admin_message)
+        # Auto-reply to user
+        user_message = MessageSchema(
+            subject="Thank you for your quotation request",
+            recipients=[quotation.email],
+            body=f"""
+            Dear {quotation.name},
 
-        print("Quotation email sent successfully.")
-        
-        return {"status": "success", "message": "Quotation email sent successfully"}
+            Thank you for requesting a quotation from Siddhivinayak Auto World. 
+            We have received your request and will get back to you shortly with detailed pricing information.
+
+            Your request details:
+            Brand: {quotation.brand}
+            Model: {quotation.model}
+            Payment Type: {quotation.payment_type}
+
+            Best regards,
+            Siddhivinayak Auto World Team
+            """,
+            subtype=MessageType.plain
+        )
+
+        fm = FastMail(email_conf)
+        await fm.send_message(admin_message)
+        await fm.send_message(user_message)
+
+        return {"status": "success", "message": "Quotation request sent successfully"}
     except Exception as e:
-        print(f"Error sending quotation: {str(e)}")  # Log the error
-        raise HTTPException(status_code=422, detail=str(e))
+        print(f"Error processing quotation: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
