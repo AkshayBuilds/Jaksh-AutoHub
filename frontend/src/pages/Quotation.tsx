@@ -362,6 +362,7 @@ function App() {
         exchange_vehicle: formData.exchangeVehicle
       };
 
+      console.log('Sending request to:', `${import.meta.env.VITE_API_URL}/api/quotation`);
       const response = await fetch(`${import.meta.env.VITE_API_URL}/api/quotation`, {
         method: "POST",
         headers: {
@@ -371,6 +372,7 @@ function App() {
         body: JSON.stringify(processedFormData)
       });
 
+      console.log('Response status:', response.status);
       if (!response.ok) {
         const errorData = await response.json();
         console.error('Server error:', errorData);
@@ -378,10 +380,11 @@ function App() {
       }
 
       const data = await response.json();
+      console.log('Success response:', data);
       alert("Quotation sent successfully!");
       
     } catch (error) {
-      console.error('Network or server error:', error);
+      console.error('Full error:', error);
       alert(error instanceof Error ? error.message : "Error sending quotation!");
     } finally {
       setLoading(false);
