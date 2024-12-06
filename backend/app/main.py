@@ -4,10 +4,9 @@ from fastapi_mail import FastMail, MessageSchema, MessageType
 from pydantic import BaseModel, EmailStr
 from .config import email_conf
 from .schemas.Quotation import QuotationForm
-from mangum import Mangum
+
 
 app = FastAPI()
-handler = Mangum(app)
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
