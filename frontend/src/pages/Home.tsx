@@ -7,6 +7,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Pagination, Navigation, Autoplay } from 'swiper/modules';
+import { useEffect } from 'react';
 
 const featuredBikes = [
   {
@@ -259,9 +260,11 @@ function Home() {
   const initialBikes = featuredBikes.slice(0, 6); // First 6 bikes
   const extraBikes = featuredBikes.slice(6);      // Remaining bikes
 
-  // Organize your brands array
-  const initialBrands = brandHighlights.slice(0, 3); // First 4 brands (Honda, Hero, TVS, Suzuki)
-  const extraBrands = brandHighlights.slice(3);      // Remaining brands (Yamaha, Bajaj, RE, KTM)
+  const initialBrands = brandHighlights.slice(0, 6); // First 3 brands
+  const extraBrands = brandHighlights.slice(6);      // Remaining brands
+
+  // Determine how many bikes to show based on screen size
+  const displayedBikes = showAllBikes ? initialBikes : initialBikes.slice(0, window.innerWidth < 768 ? 3 : 6);
 
   return (
     <div>
@@ -269,27 +272,35 @@ function Home() {
       {/* Why Choose Us Section */}
       <div className="container-custom py-12">
         <h2 className="text-3xl font-bold mb-6 text-center">Why Choose Us?</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div className="bg-white rounded-lg shadow-md p-6 text-center">
-            <DollarSign className="h-8 w-8 text-blue-600 mb-4 mx-auto" />
-            <h3 className="text-xl font-semibold mb-2">Competitive Pricing</h3>
-            <p className="text-gray-600">We offer the best prices in the market without compromising on quality.</p>
-          </div>
-          <div className="bg-white rounded-lg shadow-md p-6 text-center">
-            <CheckCircle className="h-8 w-8 text-blue-600 mb-4 mx-auto" />
-            <h3 className="text-xl font-semibold mb-2">Wide Range of Brands</h3>
-            <p className="text-gray-600">Choose from a diverse selection of top motorcycle brands.</p>
-          </div>
-          <div className="bg-white rounded-lg shadow-md p-6 text-center">
-            <Star className="h-8 w-8 text-blue-600 mb-4 mx-auto" />
-            <h3 className="text-xl font-semibold mb-2">Exceptional Customer Service</h3>
-            <p className="text-gray-600">Our team is dedicated to providing you with the best experience.</p>
-          </div>
-          <div className="bg-white rounded-lg shadow-md p-6 text-center">
-            <CreditCard className="h-8 w-8 text-blue-600 mb-4 mx-auto" />
-            <h3 className="text-xl font-semibold mb-2">Easy Financing Options</h3>
-            <p className="text-gray-600">Flexible financing plans to make your purchase easier.</p>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            {
+              icon: <DollarSign className="h-8 w-8 text-blue-600 mb-4 mx-auto" />,
+              title: "Competitive Pricing",
+              description: "We offer the best prices in the market without compromising on quality."
+            },
+            {
+              icon: <CheckCircle className="h-8 w-8 text-blue-600 mb-4 mx-auto" />,
+              title: "Wide Range of Brands",
+              description: "Choose from a diverse selection of top motorcycle brands."
+            },
+            {
+              icon: <Star className="h-8 w-8 text-blue-600 mb-4 mx-auto" />,
+              title: "Exceptional Customer Service",
+              description: "Our team is dedicated to providing you with the best experience."
+            },
+            {
+              icon: <CreditCard className="h-8 w-8 text-blue-600 mb-4 mx-auto" />,
+              title: "Easy Financing Options",
+              description: "Flexible financing plans to make your purchase easier."
+            }
+          ].map((item, index) => (
+            <div key={index} className="bg-white rounded-lg shadow-md p-4 text-center">
+              {item.icon}
+              <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
+              <p className="text-gray-600">{item.description}</p>
+            </div>
+          ))}
         </div>
       </div>
       {/* Featured Bikes Section */}
@@ -297,7 +308,7 @@ function Home() {
         <div className="container-custom">
           <h2 className="section-title">Featured Bikes</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {initialBikes.map((bike) => (
+            {displayedBikes.map((bike) => (
               <div key={bike.model} className="bg-white rounded-lg shadow-lg overflow-hidden">
                 <div className="relative h-64">
                   <Swiper
@@ -325,12 +336,8 @@ function Home() {
                     ))}
                   </Swiper>
                 </div>
-                <div className="p-6">
-                  <div className="flex justify-between items-start mb-2">
-                    <div className="w-full">
-                      <h3 className="text-xl font-bold text-center">{bike.model}</h3>
-                    </div>
-                  </div>
+                <div className="p-4">
+                  <h3 className="text-xl font-bold text-center">{bike.model}</h3>
                 </div>
               </div>
             ))}
@@ -365,12 +372,8 @@ function Home() {
                       ))}
                     </Swiper>
                   </div>
-                  <div className="p-6">
-                    <div className="flex justify-between items-start mb-2">
-                      <div className="w-full">
-                        <h3 className="text-xl font-bold text-center">{bike.model}</h3>
-                      </div>
-                    </div>
+                  <div className="p-4">
+                    <h3 className="text-xl font-bold text-center">{bike.model}</h3>
                   </div>
                 </div>
               ))}
@@ -405,7 +408,7 @@ function Home() {
                     {brand.brand}
                   </h3>
                 </div>
-                <div className="p-6">
+                <div className="p-4">
                   <p className="text-gray-600">{brand.description}</p>
                   <Link
                     to={`/products/${brand.brand.toLowerCase().replace(' ', '-')}`}
@@ -432,7 +435,7 @@ function Home() {
                       {brand.brand}
                     </h3>
                   </div>
-                  <div className="p-6">
+                  <div className="p-4">
                     <p className="text-gray-600">{brand.description}</p>
                     <Link
                       to={`/products/${brand.brand.toLowerCase().replace(' ', '-')}`}
@@ -457,9 +460,8 @@ function Home() {
         </div>
       </section>
 
-
-       {/* CTA Section */}
-       <section className="py-16 bg-gray-100 relative overflow-hidden">
+      {/* CTA Section */}
+      <section className="py-16 bg-gray-100 relative overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 bg-cover bg-center opacity-30" style={{ backgroundImage: "url('/path/to/your/background-image.jpg')" }} />
         
@@ -467,8 +469,8 @@ function Home() {
           <h2 className="text-3xl md:text-4xl font-bold mb-4 ">
             Ready to Find Your Perfect Ride?
           </h2>
-          <p className="text-xl text-gary-500 mb-8 max-w-2xl mx-auto drop-shadow-md">
-            Visit our showroom today or Get Quoatation for your dream bike
+          <p className="text-xl text-gray-500 max-w-2xl mx-auto drop-shadow-md">
+            Visit our showroom today or Get Quotation for your dream bike
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/contact" className="btn-primary bg-white text-blue-600 hover:bg-gray-100 transition duration-300 transform hover:scale-105">
@@ -482,8 +484,7 @@ function Home() {
       </section>
 
       {/* About Section */}
-       {/* About Section with CTA Style */}
-       <section className="py-16 bg-blue-600 mt-10">
+      <section className="py-16 bg-blue-600 mt-10">
         <div className="container-custom text-center">
           <h2 className="text-4xl font-bold text-white mb-4">Our Journey</h2>
           <p className="text-lg text-gray-200 mb-6">
@@ -494,8 +495,6 @@ function Home() {
           </Link>
         </div>
       </section>
-
-     
     </div>
   );
 }
