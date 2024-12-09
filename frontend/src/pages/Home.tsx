@@ -469,7 +469,7 @@ function Home() {
           <h2 className="text-3xl md:text-4xl font-bold mb-4 ">
             Ready to Find Your Perfect Ride?
           </h2>
-          <p className="text-xl text-gray-500 max-w-2xl mx-auto drop-shadow-md">
+          <p className="text-xl text-gray-500 max-w-2xl mx-auto drop-shadow-md mb-4">
             Visit our showroom today or Get Quotation for your dream bike
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -484,7 +484,7 @@ function Home() {
       </section>
 
       {/* About Section */}
-      <section className="py-16 bg-blue-600 mt-10">
+      <section className="py-16 bg-blue-600">
         <div className="container-custom text-center">
           <h2 className="text-4xl font-bold text-white mb-4">Our Journey</h2>
           <p className="text-lg text-gray-200 mb-6">
