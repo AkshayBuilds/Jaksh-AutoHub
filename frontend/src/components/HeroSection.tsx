@@ -34,10 +34,10 @@ function HeroSection() {
       {/* Content */}
       <div className="relative h-full container-custom flex items-center">
         <div className="max-w-2xl text-white">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+          <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-4">
             Your Trusted Multibrand Two-Wheeler Showroom
           </h1>
-          <p className="text-lg md:text-xl mb-8 text-gray-200">
+          <p className="text-base md:text-lg mb-6 text-gray-200">
             Discover your perfect ride from our extensive collection of premium bikes. 
             Experience excellence in service and unmatched expertise.
           </p>

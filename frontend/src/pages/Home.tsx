@@ -272,7 +272,7 @@ function Home() {
       {/* Why Choose Us Section */}
       <div className="container-custom py-12">
         <h2 className="text-3xl font-bold mb-6 text-center">Why Choose Us?</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             {
               icon: <DollarSign className="h-8 w-8 text-blue-600 mb-4 mx-auto" />,

@@ -35,10 +35,8 @@ function Navbar() {
   }, []);
 
   return (
-    <nav className={`fixed w-full top-0 z-50 transition-all duration-300 ${
-      scrolled 
-        ? 'bg-white shadow-lg py-2' 
-        : 'bg-transparent py-4'
+    <nav className={`fixed w-full z-50 transition-all duration-300 ${
+      scrolled || isOpen ? 'bg-white shadow-md' : 'bg-transparent'
     }`}>
       <div className="container-custom">
         <div className={`flex justify-between items-center transition-all duration-300 ${
