@@ -12,6 +12,13 @@ import {
 
 
 function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <footer className="bg-gray-900 text-gray-300">
       <div className="container-custom py-12">
@@ -33,22 +40,28 @@ function Footer() {
             <h3 className="text-lg font-semibold text-white mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/" className="hover:text-blue-500 transition-colors">Home</Link>
+                <Link to="/" onClick={scrollToTop} className="hover:text-blue-500 transition-colors">Home</Link>
               </li>
               <li>
-                <Link to="/about" className="hover:text-blue-500 transition-colors">About Us</Link>
+                <Link 
+                  to="/about" 
+                  onClick={scrollToTop}
+                  className="hover:text-blue-500 transition-colors"
+                >
+                  About Us
+                </Link>
               </li>
               <li>
-                <Link to="/products" className="hover:text-blue-500 transition-colors">Products</Link>
+                <Link to="/products" onClick={scrollToTop} className="hover:text-blue-500 transition-colors">Products</Link>
               </li>
               <li>
-                <Link to="/offers" className="hover:text-blue-500 transition-colors">Offers & Deals</Link>
+                <Link to="/offers" onClick={scrollToTop} className="hover:text-blue-500 transition-colors">Offers & Deals</Link>
               </li>
               <li>
-                <Link to="/quotation" className="hover:text-blue-500 transition-colors">Quotation</Link>
+                <Link to="/quotation" onClick={scrollToTop} className="hover:text-blue-500 transition-colors">Quotation</Link>
               </li>
               <li>
-                <Link to="/contact" className="hover:text-blue-500 transition-colors">Contact Us</Link>
+                <Link to="/contact" onClick={scrollToTop} className="hover:text-blue-500 transition-colors">Contact Us</Link>
               </li>
             </ul>
           </div>

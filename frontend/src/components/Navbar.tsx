@@ -182,13 +182,6 @@ function Navbar() {
                 Offers & Deals
               </Link>
               <Link
-                to="/booking"
-                className="text-gray-700 hover:text-blue-600 transition-colors"
-                onClick={toggleMenu}
-              >
-                Booking
-              </Link>
-              <Link
                 to="/quotation"
                 className="text-gray-700 hover:text-blue-600 transition-colors flex items-center space-x-2"
                 onClick={toggleMenu}

@@ -216,7 +216,7 @@ const brandHighlights = [
     image: "/hondalogo.png"
   },
   {
-    brand: "Hero MotoCorp",
+    brand: "Hero",
     description: "Hero MotoCorp is one of the largest two-wheeler manufacturers in the world, renowned for its high-quality, fuel-efficient, and reliable motorcycles and scooters.",
     image: "/herocompany.png"
   },
@@ -337,7 +337,9 @@ function Home() {
                   </Swiper>
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl font-bold text-center">{bike.model}</h3>
+                  <a href={`/products/${bike.model.toLowerCase().replace(' ', '-')}`}>
+                    <h3 className="text-xl font-bold text-center hover:text-blue-600">{bike.model}</h3>
+                  </a>
                 </div>
               </div>
             ))}
@@ -373,7 +375,9 @@ function Home() {
                     </Swiper>
                   </div>
                   <div className="p-4">
-                    <h3 className="text-xl font-bold text-center">{bike.model}</h3>
+                  <a href={`/products/${bike.model.toLowerCase().replace(' ', '-')}`}>
+                    <h3 className="text-xl font-bold text-center hover:text-blue-600">{bike.model}</h3>
+                  </a>
                   </div>
                 </div>
               ))}
