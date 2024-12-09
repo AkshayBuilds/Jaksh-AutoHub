@@ -378,10 +378,13 @@ function Home() {
                       ))}
                     </Swiper>
                   </div>
-                  <div className="p-4">
-                  <a href={`/products/${bike.model.toLowerCase().replace(' ', '-')}`}>
-                    <h3 className="text-xl font-bold text-center hover:text-blue-600">{bike.model}</h3>
-                  </a>
+                  <div className="p-4 text-center">
+                  <Link
+                    to={`/products/${bike.model.toLowerCase().replace(' ', '-')}`}
+                    className="text-xl font-bold  hover:text-blue-700"
+                  >
+                    {bike.model}
+                  </Link>
                   </div>
                 </div>
               ))}
