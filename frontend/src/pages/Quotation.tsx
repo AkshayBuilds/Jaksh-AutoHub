@@ -131,7 +131,7 @@ const VEHICLE_DATA = [
     models: [
       { "name": "FASCINO DELUX DISC SE (OBD 2)", "price": 120587 },
       { "name": "FASCINO DELUX DISC (OBD 2)", "price": 117967 },
-      { "name": "FASCINO DELUX DRUM (OBD 2)", "price": 104191 },
+      { "name": "FASCINO DRUM (OBD 2)", "price": 104191 },
       { "name": "FASCINO DISC (OBD 2)", "price": 116710 },
       { "name": "FASCINO DRUM (OBD 2)", "price": 103171 },
       { "name": "RAYZR STREET RALLY (OBD 2) MATTE BLACK", "price": 126038 },
@@ -299,6 +299,7 @@ function App() {
   const [selectedModelPrice, setSelectedModelPrice] = useState<number>(0);
   const [emi, setEmi] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (formData.brand) {
@@ -307,8 +308,6 @@ function App() {
       
       // Auto-refresh logic
       setTimeout(() => {
-        // Logic to refresh or re-fetch data can be added here
-        console.log("Data refreshed for brand:", formData.brand);
       }, 1000); // Adjust the timeout duration as needed
     }
   }, [formData.brand]);
@@ -346,8 +345,7 @@ function App() {
 
   const handleChange = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setLoading(true);
-
+    setIsSubmitting(true);
     try {
       const processedFormData = {
         name: formData.name,
@@ -387,7 +385,7 @@ function App() {
       console.error('Full error:', error);
       alert(error instanceof Error ? error.message : "Error sending quotation!");
     } finally {
-      setLoading(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -615,9 +613,36 @@ function App() {
             <div>
               <button
                 type="submit"
+                disabled={isSubmitting}
                 className="w-full inline-flex justify-center rounded-md border border-transparent bg-blue-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               >
-                Submit
+                {isSubmitting ? (
+                  <>
+                    <svg 
+                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      fill="none" 
+                      viewBox="0 0 24 24"
+                    >
+                      <circle 
+                        className="opacity-25" 
+                        cx="12" 
+                        cy="12" 
+                        r="10" 
+                        stroke="currentColor" 
+                        strokeWidth="4"
+                      />
+                      <path 
+                        className="opacity-75" 
+                        fill="currentColor" 
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      />
+                    </svg>
+                    Submitting...
+                  </>
+                ) : (
+                  'Submit'
+                )}
               </button>
             </div>
 
