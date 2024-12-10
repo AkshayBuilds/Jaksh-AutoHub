@@ -70,7 +70,9 @@ async def send_contact_email(contact: ContactForm):
             body=f"""
             Dear {contact.name},
 
-            Thank you for contacting Siddhivinayak Auto World. We have received your message and will get back to you as soon as possible.
+            Thank you for contacting Siddhivinayak Auto 
+            World. We have received your message and will 
+            get back to you as soon as possible.
 
             Your message:
             {contact.message}
@@ -123,8 +125,10 @@ async def submit_quotation(quotation: QuotationForm):
             body=f"""
             Dear {quotation.name},
 
-            Thank you for requesting a quotation from Siddhivinayak Auto World. 
-            We have received your request and will get back to you shortly with detailed pricing information.
+            Thank you for requesting a quotation from 
+            Siddhivinayak Auto World. 
+            We have received your request and will get back to 
+            you shortly with detailed pricing information.
 
             Your request details:
             Brand: {quotation.brand}
