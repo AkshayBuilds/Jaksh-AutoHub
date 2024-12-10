@@ -281,19 +281,21 @@ interface FormData {
   exchangeVehicle?: 'yes' | 'no';
 }
 
+const initialFormData: FormData = {
+  name: '',
+  phone: '',
+  email: '',
+  brand: '',
+  model: '',
+  paymentType: 'cash',
+  downPayment: '',
+  tenure: '12',
+  oldVehicleDetails: '',
+  exchangeVehicle: 'no'
+};
+
 function App() {
-  const [formData, setFormData] = useState<FormData>({
-    name: '',
-    phone: '',
-    email: '',
-    brand: '',
-    model: '',
-    paymentType: 'cash',
-    downPayment: '',
-    tenure: '12',
-    oldVehicleDetails: '',
-    exchangeVehicle: 'no'
-  });
+  const [formData, setFormData] = useState<FormData>(initialFormData);
 
   const [models, setModels] = useState<{ name: string; price: number }[]>([]);
   const [selectedModelPrice, setSelectedModelPrice] = useState<number>(0);
@@ -360,7 +362,6 @@ function App() {
         exchange_vehicle: formData.exchangeVehicle
       };
 
-      console.log('Sending request to:', `https://sidhhivinayak-backend.vercel.app/api/quotation`);
       const response = await fetch(`https://sidhhivinayak-backend.vercel.app/api/quotation`, {
         method: "POST",
         headers: {
@@ -370,16 +371,19 @@ function App() {
         body: JSON.stringify(processedFormData)
       });
 
-      console.log('Response status:', response.status);
       if (!response.ok) {
         const errorData = await response.json();
-        console.error('Server error:', errorData);
         throw new Error(errorData.detail || "Failed to send quotation");
       }
 
       const data = await response.json();
-      console.log('Success response:', data);
       alert("Quotation sent successfully!");
+      
+      // Reset form to initial state after successful submission
+      setFormData(initialFormData);
+      setSelectedModelPrice(0);
+      setEmi(0);
+      setModels([]);
       
     } catch (error) {
       console.error('Full error:', error);
