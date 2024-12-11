@@ -725,6 +725,16 @@ function BrandPage() {
     setSelectedImage(null);
   };
 
+  const handleQuotationClick = (motorcycle: Motorcycle) => {
+    // Navigate to quotation page with state
+    navigate(`/Quotation`, { 
+      state: { 
+        model: motorcycle.model, 
+        brand 
+      }
+    });
+  };
+
   if (loading) {
     return (
       <div className="container-custom py-12 mt-20">
@@ -764,7 +774,7 @@ function BrandPage() {
             transition={{ duration: 0.8 }}
             className="container-custom h-full flex flex-col justify-center"
           >
-            <div className="text-white max-w-2xl space-y-6">
+            <div className="text-white max-w-2xl space-y-6 mt-20">
               <h1 className="text-5xl font-bold mb-4 leading-tight">
                 {brand.toUpperCase()} <span className="text-blue-500">Motorcycles</span>
               </h1>
@@ -898,7 +908,7 @@ function BrandPage() {
                   </div>
                 </div>
                 <button 
-                  onClick={() => navigate(`/Quotation`, { state: { model: motorcycle.model, brand } })}
+                  onClick={() => handleQuotationClick(motorcycle)}
                   className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 rounded-lg
                            hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-md
                            hover:shadow-lg transform hover:-translate-y-1"
