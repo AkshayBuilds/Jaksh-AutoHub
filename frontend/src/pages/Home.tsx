@@ -213,7 +213,7 @@ const brandHighlights = [
   {
     brand: "Honda",
     description: "Honda is a global leader in motorcycle manufacturing, known for its innovative technology, superior performance, and exceptional build quality.",
-    image: "/hondalogo.png"
+    image: "/hondalogomain.png"
   },
   {
     brand: "Hero",

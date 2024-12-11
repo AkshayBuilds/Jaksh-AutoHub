@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, Bike, Phone, Calculator } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Menu, X, ChevronDown, Phone, Calculator } from 'lucide-react';
 
 const brands = [
   'Hero',
@@ -18,6 +18,7 @@ function Navbar() {
   const [showBrands, setShowBrands] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const toggleBrands = () => setShowBrands(!showBrands);
@@ -34,6 +35,34 @@ function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    
+    if (location.pathname === '/') {
+      // If on home page, scroll to top smoothly
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    } else {
+      // If on another page, navigate to home with a fade transition
+      document.body.style.opacity = '0';
+      document.body.style.transition = 'opacity 0.3s ease';
+      
+      setTimeout(() => {
+        navigate('/');
+        setTimeout(() => {
+          document.body.style.opacity = '1';
+          // Reset scroll position on home page
+          window.scrollTo({
+            top: 0,
+            behavior: 'instant'
+          });
+        }, 50);
+      }, 300);
+    }
+  };
+
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${
       scrolled || isOpen ? 'bg-white shadow-md' : 'bg-transparent'
@@ -42,19 +71,34 @@ function Navbar() {
         <div className={`flex justify-between items-center transition-all duration-300 ${
           scrolled ? 'h-16' : 'h-24'
         }`}>
-          {/* Logo */}
-          <Link to="/" className={`flex items-center space-x-3 transition-all duration-300 ${
-            scrolled ? 'scale-90' : 'scale-100'
-          }`}>
-            <Bike className={`transition-all duration-300 ${
-              scrolled ? 'h-8 w-8' : 'h-10 w-10'
-            } text-blue-600`} />
-            <span className={`font-bold text-gray-900 transition-all duration-300 ${
-              scrolled ? 'text-xl' : 'text-2xl'
-            }`}>
-              SIDHHIVINAYAK AUTO WORLD
-            </span>
-          </Link>
+          {/* Updated Logo with click handler */}
+          <a
+            href="/"
+            onClick={handleLogoClick}
+            className={`flex items-center gap-3 transition-all duration-300 ${
+              scrolled ? 'scale-95' : 'scale-100'
+            }`}
+          >
+            <img
+              src="/SV.png"
+              alt="Sidhhivinayak Logo" 
+              className={`transition-all duration-300 object-contain ${
+                scrolled ? 'h-10 w-auto' : 'h-12 w-auto'
+              }`}
+            />
+            <div className="flex flex-col">
+              <span className={`font-bold text-gray-900 leading-tight transition-all duration-300 ${
+                scrolled ? 'text-lg' : 'text-xl'
+              }`}>
+                SIDHHIVINAYAK
+              </span>
+              <span className={`font-medium text-gray-900 leading-tight transition-all duration-300 ${
+                scrolled ? 'text-sm' : 'text-base'
+              }`}>
+                AUTO WORLD
+              </span>
+            </div>
+          </a>
 
           {/* Desktop Navigation */}
           <div className={`hidden md:flex items-center space-x-10 transition-all duration-300 ${

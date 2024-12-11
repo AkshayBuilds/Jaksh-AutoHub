@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Filter, SortDesc, ChevronDown } from 'lucide-react';
+import { Filter, SortDesc, ChevronDown, Star, TrendingUp, Award } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface Motorcycle {
   id: number;
@@ -15,10 +16,9 @@ interface Motorcycle {
   };
 }
 
-// Mock data - Replace with your actual data
 const brandData = {
   'hero': {
-    logo: "/herocompany.png",
+    logo: "/herologo.png",
     description: 'Hero MotoCorp is the world\'s largest manufacturer of two-wheelers, based in India.',
     products: [
       {
@@ -97,7 +97,7 @@ const brandData = {
     ]
   },
   'honda': {
-    logo: "/hondalogo2.png",
+    logo: "/hondalogo.png",
     description: 'Honda is a leading manufacturer of motorcycles and scooters worldwide.',
     products: [
       {
@@ -184,7 +184,7 @@ const brandData = {
     ]
   },
   'tvs': {
-    logo: "/tvslogo.png",
+    logo: "/tvslogoo.png",
     description: 'TVS Motor Company is a leading two-wheeler manufacturer in India.',
     products: [
       {
@@ -271,7 +271,7 @@ const brandData = {
     ]
   },
   'bajaj': {
-    logo: "/bajajlogo.png",
+    logo: "/Bajajlogoo.png",
     description: 'Bajaj Auto is one of the leading manufacturers of motorcycles in India.',
     products: [
       {
@@ -358,7 +358,7 @@ const brandData = {
     ]
   },
   'ktm': {
-    logo: "/ktmlogo2.png",
+    logo: "/ktmlogoo.png",
     description: 'KTM is known for its high-performance motorcycles.',
     products: [
       {
@@ -427,7 +427,7 @@ const brandData = {
     ]
   },
   'yamaha': {
-    logo: "/yamahalogo.png",
+    logo: "/yamahalogoo.png",
     description: 'Yamaha is a renowned manufacturer of motorcycles and scooters.',
     products: [
       {
@@ -496,7 +496,7 @@ const brandData = {
     ]
   },
   'royal-enfield': {
-    logo: "/rflogo2.png",
+    logo: "/rflogo.png",
     description: 'Royal Enfield is known for its classic motorcycles.',
     products: [
       {
@@ -574,7 +574,7 @@ const brandData = {
     ]
   },
   'suzuki': {
-    logo: "/suzukilogo.png",
+    logo: "/suzukilogoo.png",
     description: 'Suzuki is a well-known manufacturer of motorcycles and scooters.',
     products: [
       {
@@ -747,136 +747,187 @@ function BrandPage() {
 
   return (
     <div className="bg-gray-50">
-      {/* Hero Section */}
-      <div className="relative h-[40vh] min-h-[300px] bg-gray-100">
+      {/* Enhanced Hero Section */}
+      <div className="relative h-[50vh] min-h-[400px]">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: `url(${brandInfo.logo})`,
-            backgroundSize: 'contain',
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
           }}
         />
         <div 
-          className="absolute inset-0 bg-gradient-to-r from-gray-900/100 to-gray-90/900"
+          className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"
         >
-          <div className="container-custom h-full flex items-center">
-            <div className="text-white max-w-2xl">
-              <h1 className="text-4xl font-bold mb-4">{brand.toUpperCase()} Motorcycles</h1>
-              <p className="text-gray-200">{brandInfo.description}</p>
-              <p className="text-gray-200 mt-4 font-semibold text-lg italic">All prices listed are for the base model, ensuring you get the best value!</p>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="container-custom h-full flex flex-col justify-center"
+          >
+            <div className="text-white max-w-2xl space-y-6">
+              <h1 className="text-5xl font-bold mb-4 leading-tight">
+                {brand.toUpperCase()} <span className="text-blue-500">Motorcycles</span>
+              </h1>
+              <p className="text-xl text-gray-200">{brandInfo.description}</p>
+              <p className="text-lg font-medium text-blue-400 italic">
+                Experience the Power of Performance
+              </p>
+              <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
+                Explore All Models
+              </button>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 
-      {/* Filters and Products */}
+      {/* Enhanced Filters and Products */}
       <div className="container-custom py-12">
-        {/* Filters */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-          <div className="flex flex-wrap items-center gap-6">
+        {/* Styled Filters */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-white rounded-xl shadow-lg p-4 md:p-6 mb-8"
+        >
+          <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
+            {/* Filter Label */}
             <div className="flex items-center gap-2">
-              <Filter className="h-5 w-5 text-gray-500" />
+              <Filter className="h-5 w-5 text-blue-500" />
               <span className="font-medium">Filters:</span>
             </div>
             
-            {/* Category Filter */}
-            <div className="relative">
-              <select 
-                className="appearance-none bg-gray-50 border border-gray-300 rounded-lg py-2 px-4 pr-8 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-              >
-                <option value="all">All Categories</option>
-                <option value="commuter">Commuter</option>
-                <option value="sports">Sports</option>
-                <option value="cruiser">Cruiser</option>
-              </select>
-              <ChevronDown className="h-4 w-4 text-gray-500 absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none" />
-            </div>
+            <div className="flex flex-col md:flex-row gap-4 md:gap-6 flex-grow">
+              {/* Enhanced Category Filter */}
+              <div className="relative group flex-1">
+                <select 
+                  className="w-full appearance-none bg-gray-50 border border-gray-300 rounded-lg py-3 px-4 md:px-6 pr-10
+                           focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300
+                           hover:border-blue-500 group-hover:border-blue-500"
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                >
+                  <option value="all">All Categories</option>
+                  <option value="commuter">Commuter</option>
+                  <option value="sports">Sports</option>
+                  <option value="cruiser">Cruiser</option>
+                </select>
+                <ChevronDown className="h-4 w-4 text-gray-500 absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none" />
+              </div>
 
-            {/* Price Range Filter */}
-            <div className="relative">
-              <select 
-                className="appearance-none bg-gray-50 border border-gray-300 rounded-lg py-2 px-4 pr-8 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                value={priceRange}
-                onChange={(e) => setPriceRange(e.target.value)}
-              >
-                <option value="all">All Prices</option>
-                <option value="0-75000">Under ₹75,000</option>
-                <option value="75000-100000">₹75,000 - ₹1,00,000</option>
-                <option value="100000+">Above ₹1,00,000</option>
-              </select>
-              <ChevronDown className="h-4 w-4 text-gray-500 absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none" />
-            </div>
+              {/* Enhanced Price Range Filter */}
+              <div className="relative group flex-1">
+                <select 
+                  className="w-full appearance-none bg-gray-50 border border-gray-300 rounded-lg py-3 px-4 md:px-6 pr-10
+                           focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300
+                           hover:border-blue-500 group-hover:border-blue-500"
+                  value={priceRange}
+                  onChange={(e) => setPriceRange(e.target.value)}
+                >
+                  <option value="all">All Prices</option>
+                  <option value="0-75000">Under ₹75,000</option>
+                  <option value="75000-100000">₹75,000 - ₹1,00,000</option>
+                  <option value="100000+">Above ₹1,00,000</option>
+                </select>
+                <ChevronDown className="h-4 w-4 text-gray-500 absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none" />
+              </div>
 
-            {/* Sort */}
-            <div className="ml-auto flex items-center gap-2">
-              <SortDesc className="h-5 w-5 text-gray-500" />
-              <select 
-                className="appearance-none bg-gray-50 border border-gray-300 rounded-lg py-2 px-4 pr-8 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-              >
-                <option value="name">Name</option>
-                <option value="price-low">Price: Low to High</option>
-                <option value="price-high">Price: High to Low</option>
-              </select>
-              <ChevronDown className="h-4 w-4 text-gray-500 absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none" />
+              {/* Enhanced Sort */}
+              <div className="relative group flex-1 md:ml-auto">
+                <div className="flex items-center gap-2 mb-2 md:mb-0 md:absolute md:-top-6">
+                  <SortDesc className="h-5 w-5 text-blue-500" />
+                  <span className="text-sm text-gray-600">Sort by:</span>
+                </div>
+                <select 
+                  className="w-full appearance-none bg-gray-50 border border-gray-300 rounded-lg py-3 px-4 md:px-6 pr-10
+                           focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300
+                           hover:border-blue-500 group-hover:border-blue-500"
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                >
+                  <option value="name">Name</option>
+                  <option value="price-low">Price: Low to High</option>
+                  <option value="price-high">Price: High to Low</option>
+                </select>
+                <ChevronDown className="h-4 w-4 text-gray-500 absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none" />
+              </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Products List */}
+        {/* Enhanced Products Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {filteredMotorcycles.map((motorcycle) => (
-            <div key={motorcycle.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-              <div className="relative h-48">
+          {filteredMotorcycles.map((motorcycle, index) => (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              key={motorcycle.id}
+              className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300
+                         transform hover:scale-105"
+            >
+              <div className="relative h-48 group">
                 <img 
                   src={motorcycle.images[0]} 
                   alt={motorcycle.model}
-                  className="w-full h-full object-cover cursor-pointer"
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                   onClick={() => handleImageClick(motorcycle.images[0])}
                 />
+                {/* Labels for special bikes */}
+                {motorcycle.id === 1 && (
+                  <div className="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full
+                                 text-sm font-medium shadow-lg">
+                    Best Seller
+                  </div>
+                )}
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">{motorcycle.model}</h3>
-                <div className="flex justify-between items-center mb-4">
+              <div className="p-6 space-y-4">
+                <h3 className="text-xl font-semibold mb-2 text-gray-800">{motorcycle.model}</h3>
+                <div className="flex justify-between items-center">
                   <span className="text-2xl font-bold text-blue-600">₹{motorcycle.price}</span>
-                  <span className="text-sm text-gray-500">{motorcycle.category}</span>
+                  <span className="text-sm font-medium px-3 py-1 bg-blue-100 text-blue-800 rounded-full">
+                    {motorcycle.category}
+                  </span>
                 </div>
                 <div className="space-y-2 text-sm text-gray-600">
-                  <div className="flex justify-between">
-                    <span>Engine</span>
+                  <div className="flex items-center gap-2">
+                    <TrendingUp className="h-4 w-4 text-gray-400" />
                     <span>{motorcycle.specs.engine}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span>Power</span>
-                    <span>{motorcycle.specs.power}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Mileage</span>
+                  <div className="flex items-center gap-2">
+                    <Star className="h-4 w-4 text-gray-400" />
                     <span>{motorcycle.specs.mileage}</span>
                   </div>
                 </div>
                 <button 
                   onClick={() => navigate(`/Quotation`, { state: { model: motorcycle.model, brand } })}
-                  className="mt-6 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 rounded-lg
+                           hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-md
+                           hover:shadow-lg transform hover:-translate-y-1"
                 >
                   Get Quotation
                 </button>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
 
-      {/* Modal for enlarged image */}
+      {/* Enhanced Modal */}
       {selectedImage && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75" onClick={closeModal}>
-          <img src={selectedImage} alt="Enlarged" className="max-w-full max-h-full" />
-        </div>
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75"
+          onClick={closeModal}
+        >
+          <motion.img 
+            initial={{ scale: 0.5 }}
+            animate={{ scale: 1 }}
+            src={selectedImage}
+            alt="Enlarged"
+            className="max-w-[90%] max-h-[90vh] rounded-lg shadow-2xl"
+          />
+        </motion.div>
       )}
     </div>
   );
