@@ -8,6 +8,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 import { useEffect } from 'react';
+import { motion } from 'framer-motion';
 
 const featuredBikes = [
   {
@@ -266,41 +267,163 @@ function Home() {
   // Determine how many bikes to show based on screen size
   const displayedBikes = showAllBikes ? initialBikes : initialBikes.slice(0, window.innerWidth < 768 ? 3 : 6);
 
+  const whyChooseUsItems = [
+    {
+      icon: <DollarSign className="h-8 w-8 text-blue-600" />,
+      title: "Unbeatable Pricing",
+      description: "Premium bikes at budget-friendly prices. Get the best value without compromising on quality.",
+      gradient: "from-blue-500 to-blue-600"
+    },
+    {
+      icon: <CheckCircle className="h-8 w-8 text-green-600" />,
+      title: "Diverse Collection",
+      description: "From commuters to superbikes, find your perfect ride from India's top brands.",
+      gradient: "from-green-500 to-green-600"
+    },
+    {
+      icon: <Star className="h-8 w-8 text-yellow-600" />,
+      title: "Expert Support",
+      description: "Our dedicated team ensures your journey is smooth, satisfying, and memorable.",
+      gradient: "from-yellow-500 to-yellow-600"
+    },
+    {
+      icon: <CreditCard className="h-8 w-8 text-purple-600" />,
+      title: "Flexible Financing",
+      description: "Easy EMI options and customized payment plans to make your dream bike affordable.",
+      gradient: "from-purple-500 to-purple-600"
+    }
+  ];
+
   return (
     <div>
       <HeroSection />
-      {/* Why Choose Us Section */}
-      <div className="container-custom py-12">
-        <h2 className="text-3xl font-bold mb-6 text-center">Why Choose Us?</h2>
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            {
-              icon: <DollarSign className="h-8 w-8 text-blue-600 mb-4 mx-auto" />,
-              title: "Competitive Pricing",
-              description: "We offer the best prices in the market without compromising on quality."
-            },
-            {
-              icon: <CheckCircle className="h-8 w-8 text-blue-600 mb-4 mx-auto" />,
-              title: "Wide Range of Brands",
-              description: "Choose from a diverse selection of top motorcycle brands."
-            },
-            {
-              icon: <Star className="h-8 w-8 text-blue-600 mb-4 mx-auto" />,
-              title: "Exceptional Customer Service",
-              description: "Our team is dedicated to providing you with the best experience."
-            },
-            {
-              icon: <CreditCard className="h-8 w-8 text-blue-600 mb-4 mx-auto" />,
-              title: "Easy Financing Options",
-              description: "Flexible financing plans to make your purchase easier."
-            }
-          ].map((item, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-md p-4 text-center">
-              {item.icon}
-              <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-              <p className="text-gray-600">{item.description}</p>
-            </div>
-          ))}
+      {/* Enhanced Why Choose Us Section */}
+      <div className="relative py-16 bg-gradient-to-br from-gray-50 via-white to-blue-50 overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" 
+               style={{
+                 backgroundImage: 'url("/pattern.png")',
+                 backgroundSize: '30px 30px',
+                 backgroundRepeat: 'repeat'
+               }}
+          />
+        </div>
+
+        <div className="container-custom relative">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Why We're Your <span className="text-blue-600">Best Choice</span>?
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Experience excellence in every aspect of your bike-buying journey with us
+            </p>
+          </div>
+
+          {/* Mobile Carousel */}
+          <div className="lg:hidden">
+            <Swiper
+              slidesPerView={1}
+              spaceBetween={20}
+              loop={true}
+              loopAdditionalSlides={1}
+              pagination={{
+                clickable: true,
+                dynamicBullets: true,
+              }}
+              navigation={true}
+              breakpoints={{
+                640: {
+                  slidesPerView: 2,
+                },
+              }}
+              autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true
+              }}
+              modules={[Pagination, Navigation, Autoplay]}
+              className="py-8 why-choose-swiper"
+            >
+              {whyChooseUsItems.map((item, index) => (
+                <SwiperSlide key={index}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="group relative bg-white rounded-2xl shadow-lg hover:shadow-xl 
+                             transition-all duration-300 transform hover:-translate-y-1 overflow-hidden h-full"
+                  >
+                    {/* Gradient Border */}
+                    <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 
+                                   transition-opacity duration-300 bg-gradient-to-r ${item.gradient}`} 
+                         style={{ padding: '2px' }}>
+                      <div className="absolute inset-0 bg-white rounded-2xl" />
+                    </div>
+
+                    <div className="relative p-6 space-y-4">
+                      <motion.div 
+                        className="w-16 h-16 mx-auto bg-gray-50 rounded-full flex items-center justify-center
+                                 group-hover:scale-110 transition-transform duration-300"
+                        whileHover={{ rotate: 360 }}
+                        transition={{ duration: 0.5 }}
+                      >
+                        {item.icon}
+                      </motion.div>
+
+                      <h3 className="text-xl font-bold text-gray-900 text-center">
+                        {item.title}
+                      </h3>
+
+                      <p className="text-gray-600 text-center">
+                        {item.description}
+                      </p>
+                    </div>
+                  </motion.div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+
+          {/* Desktop Grid */}
+          <div className="hidden lg:grid grid-cols-4 gap-8">
+            {whyChooseUsItems.map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="group relative bg-white rounded-2xl shadow-lg hover:shadow-xl 
+                         transition-all duration-300 transform hover:-translate-y-1 overflow-hidden"
+              >
+                {/* Gradient Border */}
+                <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 
+                               transition-opacity duration-300 bg-gradient-to-r ${item.gradient}`} 
+                     style={{ padding: '2px' }}>
+                  <div className="absolute inset-0 bg-white rounded-2xl" />
+                </div>
+
+                <div className="relative p-6 space-y-4">
+                  <motion.div 
+                    className="w-16 h-16 mx-auto bg-gray-50 rounded-full flex items-center justify-center
+                             group-hover:scale-110 transition-transform duration-300"
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    {item.icon}
+                  </motion.div>
+
+                  <h3 className="text-xl font-bold text-gray-900 text-center">
+                    {item.title}
+                  </h3>
+
+                  <p className="text-gray-600 text-center">
+                    {item.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
       {/* Featured Bikes Section */}
