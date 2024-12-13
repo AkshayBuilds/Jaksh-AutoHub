@@ -346,13 +346,14 @@ function Home() {
               className="py-8 why-choose-swiper"
             >
               {whyChooseUsItems.map((item, index) => (
-                <SwiperSlide key={index}>
+                <SwiperSlide key={index} className="h-auto">
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
                     className="group relative bg-white rounded-2xl shadow-lg hover:shadow-xl 
-                             transition-all duration-300 transform hover:-translate-y-1 overflow-hidden h-full"
+                             transition-all duration-300 transform hover:-translate-y-1 overflow-hidden
+                             h-full flex flex-col"
                   >
                     {/* Gradient Border */}
                     <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 
@@ -361,23 +362,25 @@ function Home() {
                       <div className="absolute inset-0 bg-white rounded-2xl" />
                     </div>
 
-                    <div className="relative p-6 space-y-4">
-                      <motion.div 
-                        className="w-16 h-16 mx-auto bg-gray-50 rounded-full flex items-center justify-center
-                                 group-hover:scale-110 transition-transform duration-300"
-                        whileHover={{ rotate: 360 }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        {item.icon}
-                      </motion.div>
+                    <div className="relative p-6 space-y-4 flex-grow flex flex-col justify-between">
+                      <div className="space-y-4">
+                        <motion.div 
+                          className="w-16 h-16 mx-auto bg-gray-50 rounded-full flex items-center justify-center
+                                   group-hover:scale-110 transition-transform duration-300"
+                          whileHover={{ rotate: 360 }}
+                          transition={{ duration: 0.5 }}
+                        >
+                          {item.icon}
+                        </motion.div>
 
-                      <h3 className="text-xl font-bold text-gray-900 text-center">
-                        {item.title}
-                      </h3>
+                        <h3 className="text-xl font-bold text-gray-900 text-center">
+                          {item.title}
+                        </h3>
 
-                      <p className="text-gray-600 text-center">
-                        {item.description}
-                      </p>
+                        <p className="text-gray-600 text-center">
+                          {item.description}
+                        </p>
+                      </div>
                     </div>
                   </motion.div>
                 </SwiperSlide>

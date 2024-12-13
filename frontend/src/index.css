@@ -86,3 +86,102 @@
   opacity: 1;
   background: #3b82f6 !important; /* blue-500 */
 }
+
+.bg-grid-white\/10 {
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Custom styles for Stats carousel */
+.stats-swiper .swiper-button-prev,
+.stats-swiper .swiper-button-next {
+  width: 35px;
+  height: 35px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  color: #1d4ed8; /* blue-700 */
+}
+
+.stats-swiper .swiper-button-prev:after,
+.stats-swiper .swiper-button-next:after {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.stats-swiper .swiper-button-prev:hover,
+.stats-swiper .swiper-button-next:hover {
+  background-color: #1d4ed8; /* blue-700 */
+  color: white;
+}
+
+.stats-swiper .swiper-pagination-bullet {
+  background: #1a1a1a !important; /* Changed to black */
+  opacity: 0.3;
+}
+
+.stats-swiper .swiper-pagination-bullet-active {
+  opacity: 1;
+  background: #1a1a1a !important; /* Changed to black */
+}
+
+.stats-swiper .swiper-button-prev {
+  left: 5px;
+}
+
+.stats-swiper .swiper-button-next {
+  right: 5px;
+}
+
+/* Custom styles for Why Choose Us carousel */
+.why-choose-swiper .swiper-pagination-bullet {
+  background: #1a1a1a !important;
+  opacity: 0.3;
+}
+
+.why-choose-swiper .swiper-pagination-bullet-active {
+  opacity: 1;
+  background: #1a1a1a !important;
+}
+
+/* Custom styles for Mission Vision carousel */
+.mission-vision-swiper .swiper-button-prev,
+.mission-vision-swiper .swiper-button-next {
+  width: 35px;
+  height: 35px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  color: #1d4ed8;
+}
+
+.mission-vision-swiper .swiper-button-prev:after,
+.mission-vision-swiper .swiper-button-next:after {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.mission-vision-swiper .swiper-button-prev:hover,
+.mission-vision-swiper .swiper-button-next:hover {
+  background-color: #1d4ed8;
+  color: white;
+}
+
+.mission-vision-swiper .swiper-pagination-bullet {
+  background: white !important;
+  opacity: 0.3;
+}
+
+.mission-vision-swiper .swiper-pagination-bullet-active {
+  opacity: 1;
+  background: white !important;
+}
+
+.mission-vision-swiper .swiper-button-prev {
+  left: 5px;
+}
+
+.mission-vision-swiper .swiper-button-next {
+  right: 5px;
+}

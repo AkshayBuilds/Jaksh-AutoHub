@@ -63,6 +63,16 @@ function Navbar() {
     }
   };
 
+  // Add this function to check if we're on a page that needs dark text
+  const needsDarkText = () => {
+    const darkTextRoutes = ['/offers', '/quotation', '/contact'];
+    
+    // Add check for products routes
+    const isProductRoute = location.pathname.startsWith('/products');
+    
+    return darkTextRoutes.includes(location.pathname) || isProductRoute;
+  };
+
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${
       scrolled || isOpen ? 'bg-white shadow-md' : 'bg-transparent'
@@ -71,7 +81,6 @@ function Navbar() {
         <div className={`flex justify-between items-center transition-all duration-300 ${
           scrolled ? 'h-16' : 'h-24'
         }`}>
-          {/* Updated Logo with click handler */}
           <a
             href="/"
             onClick={handleLogoClick}
@@ -87,14 +96,14 @@ function Navbar() {
               }`}
             />
             <div className="flex flex-col">
-              <span className={`font-bold text-gray-900 leading-tight transition-all duration-300 ${
-                scrolled ? 'text-lg' : 'text-xl'
-              }`}>
+              <span className={`font-bold leading-tight transition-all duration-300 ${
+                scrolled || isOpen || needsDarkText() ? 'text-gray-900' : 'text-white'
+              } ${scrolled ? 'text-lg' : 'text-xl'}`}>
                 SIDHHIVINAYAK
               </span>
-              <span className={`font-medium text-gray-900 leading-tight transition-all duration-300 ${
-                scrolled ? 'text-sm' : 'text-base'
-              }`}>
+              <span className={`font-medium leading-tight transition-all duration-300 ${
+                scrolled || isOpen || needsDarkText() ? 'text-gray-900' : 'text-white'
+              } ${scrolled ? 'text-sm' : 'text-base'}`}>
                 AUTO WORLD
               </span>
             </div>
@@ -107,7 +116,7 @@ function Navbar() {
             <Link
               to="/"
               className={`text-lg hover:text-blue-600 transition-colors ${
-                isActive('/') ? 'text-blue-600' : 'text-gray-700'
+                isActive('/') ? 'text-blue-600' : scrolled || isOpen || needsDarkText() ? 'text-gray-700' : 'text-white'
               }`}
             >
               Home
@@ -115,7 +124,7 @@ function Navbar() {
             <Link
               to="/about"
               className={`hover:text-blue-600 transition-colors ${
-                isActive('/about') ? 'text-blue-600' : 'text-gray-700'
+                isActive('/about') ? 'text-blue-600' : scrolled || isOpen || needsDarkText() ? 'text-gray-700' : 'text-white'
               }`}
             >
               About Us
@@ -123,7 +132,9 @@ function Navbar() {
             <div className="relative group">
               <button
                 onClick={toggleBrands}
-                className="flex items-center space-x-1 hover:text-blue-600 transition-colors"
+                className={`flex items-center space-x-1 hover:text-blue-600 transition-colors ${
+                  scrolled || isOpen || needsDarkText() ? 'text-gray-700' : 'text-white'
+                }`}
               >
                 <span>Products</span>
                 <ChevronDown className="h-4 w-4" />
@@ -133,7 +144,9 @@ function Navbar() {
                   <Link
                     key={brand}
                     to={`/products/${brand.toLowerCase().replace(' ', '-')}`}
-                    className="block px-4 py-2 hover:bg-gray-100 text-gray-700"
+                    className={`block px-4 py-2 hover:text-blue-600 transition-colors ${
+                      isActive(`/products/${brand.toLowerCase().replace(' ', '-')}`) ? 'text-blue-600' : scrolled || isOpen || needsDarkText() ? 'text-gray-700' : 'text-gray-700'
+                    }`}
                   >
                     {brand}
                   </Link>
@@ -143,7 +156,7 @@ function Navbar() {
             <Link
               to="/offers"
               className={`hover:text-blue-600 transition-colors ${
-                isActive('/offers') ? 'text-blue-600' : 'text-gray-700'
+                isActive('/offers') ? 'text-blue-600' : scrolled || isOpen || needsDarkText() ? 'text-gray-700' : 'text-white'
               }`}
             >
               Offers & Deals
@@ -151,7 +164,7 @@ function Navbar() {
             <Link
               to="/quotation"
               className={`hover:text-blue-600 transition-colors flex items-center space-x-1 ${
-                isActive('/quotation') ? 'text-blue-600' : 'text-gray-700'
+                isActive('/quotation') ? 'text-blue-600' : scrolled || isOpen || needsDarkText() ? 'text-gray-700' : 'text-white'
               }`}
             >
               <Calculator className="h-4 w-4" />
@@ -169,9 +182,9 @@ function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={toggleMenu}
-            className={`md:hidden text-gray-700 hover:text-blue-600 transition-all duration-300 ${
-              scrolled ? 'scale-90' : 'scale-100'
-            }`}
+            className={`md:hidden transition-all duration-300 ${
+              scrolled || isOpen || needsDarkText() ? 'text-gray-700' : 'text-white'
+            } ${scrolled ? 'scale-90' : 'scale-100'}`}
           >
             {isOpen ? <X className="h-8 w-8" /> : <Menu className="h-8 w-8" />}
           </button>
