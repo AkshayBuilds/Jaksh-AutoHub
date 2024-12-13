@@ -25,6 +25,12 @@ interface ValueItem {
   color: string;
 }
 
+interface VisionMissionItem {
+  title: string;
+  description: string;
+  icon: React.ElementType;
+}
+
 const values: ValueItem[] = [
   {
     title: 'Customer First',
@@ -76,6 +82,19 @@ const stats: StatItem[] = [
     number: 'Countless',
     description: 'Turning every ride into a cherished memory',
     icon: TruckIcon
+  }
+];
+
+const visionMissionItems: VisionMissionItem[] = [
+  {
+    title: 'Our Mission',
+    description: '"To be the most trusted and customer-centric two-wheeler dealership, offering not only the finest selection of bikes but also an unmatched after-sales experience that inspires loyalty and satisfaction."',
+    icon: Target
+  },
+  {
+    title: 'Our Vision',
+    description: '"To revolutionize the two-wheeler buying journey by seamlessly blending premium products, exceptional customer service, and cutting-edge technical expertise, redefining the way people connect with their rides."',
+    icon: Lightbulb
   }
 ];
 
@@ -245,7 +264,53 @@ const About: React.FC = () => {
         <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 p-1">
           <div className="absolute inset-0 bg-grid-white/10 [mask-image:linear-gradient(0deg,transparent,white,transparent)]" />
           
-          <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8 p-8">
+          {/* Mobile Slider */}
+          <div className="md:hidden relative p-8">
+            <Swiper
+              slidesPerView={1}
+              spaceBetween={20}
+              loop={true}
+              pagination={{
+                clickable: true,
+                dynamicBullets: true,
+              }}
+              navigation={true}
+              autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true
+              }}
+              modules={[Pagination, Navigation, Autoplay]}
+              className="py-8"
+            >
+              {visionMissionItems.map((item, index) => (
+                <SwiperSlide key={item.title} className="h-[400px]">
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                    className="bg-white/10 backdrop-blur-lg rounded-xl p-8 hover:bg-white/20 
+                             transition-all duration-300 group h-full flex flex-col"
+                  >
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="p-3 bg-blue-600/20 rounded-lg group-hover:scale-110 transition-transform duration-300">
+                        <item.icon className="h-8 w-8 text-blue-400" />
+                      </div>
+                      <h2 className="text-3xl font-bold text-white">{item.title}</h2>
+                    </div>
+                    <div className="flex-grow flex items-center">
+                      <p className="text-gray-300 leading-relaxed text-lg italic">
+                        {item.description}
+                      </p>
+                    </div>
+                  </motion.div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+
+          {/* Desktop Grid */}
+          <div className="hidden md:grid grid-cols-2 gap-8 p-8">
             {/* Mission Card */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
