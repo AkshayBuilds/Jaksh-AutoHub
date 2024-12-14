@@ -109,8 +109,8 @@ function Navbar() {
             </div>
           </a>
 
-          {/* Desktop Navigation */}
-          <div className={`hidden md:flex items-center space-x-10 transition-all duration-300 ${
+          {/* Desktop Navigation - Only visible on lg screens and above */}
+          <div className={`hidden lg:flex items-center space-x-10 transition-all duration-300 ${
             scrolled ? 'text-base' : 'text-lg'
           }`}>
             <Link
@@ -179,10 +179,10 @@ function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Toggle Menu Button - Visible on all screens below lg */}
           <button
             onClick={toggleMenu}
-            className={`md:hidden transition-all duration-300 ${
+            className={`lg:hidden transition-all duration-300 ${
               scrolled || isOpen || needsDarkText() ? 'text-gray-700' : 'text-white'
             } ${scrolled ? 'scale-90' : 'scale-100'}`}
           >
@@ -190,31 +190,31 @@ function Navbar() {
           </button>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile/Tablet Navigation Menu */}
         {isOpen && (
-          <div className="md:hidden py-6 bg-white">
+          <div className="lg:hidden py-6 bg-white">
             <div className="flex flex-col space-y-5">
               <Link
                 to="/"
-                className="text-gray-700 hover:text-blue-600 transition-colors"
+                className="text-gray-700 hover:text-blue-600 transition-colors px-4"
                 onClick={toggleMenu}
               >
                 Home
               </Link>
               <Link
                 to="/about"
-                className="text-gray-700 hover:text-blue-600 transition-colors"
+                className="text-gray-700 hover:text-blue-600 transition-colors px-4"
                 onClick={toggleMenu}
               >
                 About Us
               </Link>
-              <div>
+              <div className="px-4">
                 <button
                   onClick={toggleBrands}
                   className="flex items-center justify-between w-full text-gray-700 hover:text-blue-600 transition-colors"
                 >
                   <span>Products</span>
-                  <ChevronDown className="h-4 w-4" />
+                  <ChevronDown className={`h-4 w-4 transform transition-transform ${showBrands ? 'rotate-180' : ''}`} />
                 </button>
                 {showBrands && (
                   <div className="pl-4 mt-2 space-y-2">
@@ -222,7 +222,7 @@ function Navbar() {
                       <Link
                         key={brand}
                         to={`/products/${brand.toLowerCase().replace(' ', '-')}`}
-                        className="block text-gray-600 hover:text-blue-600 transition-colors"
+                        className="block text-gray-600 hover:text-blue-600 transition-colors py-2"
                         onClick={toggleMenu}
                       >
                         {brand}
@@ -233,27 +233,29 @@ function Navbar() {
               </div>
               <Link
                 to="/offers"
-                className="text-gray-700 hover:text-blue-600 transition-colors"
+                className="text-gray-700 hover:text-blue-600 transition-colors px-4"
                 onClick={toggleMenu}
               >
                 Offers & Deals
               </Link>
               <Link
                 to="/quotation"
-                className="text-gray-700 hover:text-blue-600 transition-colors flex items-center space-x-2"
+                className="text-gray-700 hover:text-blue-600 transition-colors flex items-center space-x-2 px-4"
                 onClick={toggleMenu}
               >
                 <Calculator className="h-4 w-4" />
                 <span>Get Quote</span>
               </Link>
-              <Link
-                to="/contact"
-                className="flex items-center space-x-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors w-full justify-center"
-                onClick={toggleMenu}
-              >
-                <Phone className="h-4 w-4" />
-                <span>Contact Us</span>
-              </Link>
+              <div className="px-4">
+                <Link
+                  to="/contact"
+                  className="flex items-center space-x-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors w-full justify-center"
+                  onClick={toggleMenu}
+                >
+                  <Phone className="h-4 w-4" />
+                  <span>Contact Us</span>
+                </Link>
+              </div>
             </div>
           </div>
         )}
