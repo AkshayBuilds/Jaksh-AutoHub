@@ -65,12 +65,8 @@ function Navbar() {
 
   // Add this function to check if we're on a page that needs dark text
   const needsDarkText = () => {
-    const darkTextRoutes = ['/offers', '/quotation', '/contact'];
-    
-    // Add check for products routes
-    const isProductRoute = location.pathname.startsWith('/products');
-    
-    return darkTextRoutes.includes(location.pathname) || isProductRoute;
+    const darkTextRoutes = ['/offers', '/quotation'];
+    return darkTextRoutes.includes(location.pathname);
   };
 
   return (

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import HeroSection from '../components/HeroSection';
-import { ArrowRight, DollarSign, CheckCircle, Star, CreditCard } from 'lucide-react';
+import { ArrowRight, DollarSign, CheckCircle, Star, CreditCard, MapPin, FileText } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -9,6 +9,18 @@ import 'swiper/css/navigation';
 import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
+import BikePreviewModal from '../components/BikePreviewModal';
+
+interface BikeImage {
+  url: string;
+  title: string;
+  specs?: {
+    engine?: string;
+    power?: string;
+    mileage?: string;
+    price?: string;
+  };
+}
 
 const featuredBikes = [
   {
@@ -256,6 +268,7 @@ const brandHighlights = [
 function Home() {
   const [showAllBikes, setShowAllBikes] = useState(false);
   const [showAllBrands, setShowAllBrands] = useState(false);
+  const [selectedBike, setSelectedBike] = useState<{ model: string; image: BikeImage } | null>(null);
 
   // Organize bikes
   const initialBikes = featuredBikes.slice(0, 6); // First 6 bikes
@@ -297,9 +310,7 @@ function Home() {
   return (
     <div>
       <HeroSection />
-      {/* Enhanced Why Choose Us Section */}
       <div className="relative py-16 bg-gradient-to-br from-gray-50 via-white to-blue-50 overflow-hidden">
-        {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" 
                style={{
@@ -319,7 +330,6 @@ function Home() {
               Experience excellence in every aspect of your bike-buying journey with us
             </p>
           </div>
-
           {/* Mobile Carousel */}
           <div className="lg:hidden">
             <Swiper
@@ -435,7 +445,7 @@ function Home() {
           <h2 className="section-title">Featured Bikes</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {displayedBikes.map((bike) => (
-              <div key={bike.model} className="bg-white rounded-lg shadow-lg overflow-hidden">
+              <div key={bike.model} className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                 <div className="relative h-64">
                   <Swiper
                     pagination={{ clickable: true }}
@@ -447,29 +457,34 @@ function Home() {
                       disableOnInteraction: false,
                       pauseOnMouseEnter: true
                     }}
-                    className="h-full swiper-hover-buttons"
+                    className="h-full group"
                   >
                     {bike.images?.map((image, imgIndex) => (
                       <SwiperSlide key={imgIndex} className="overflow-hidden">
-                        <div className="w-full h-full overflow-hidden">
-                          <img
-                            src={image.url}
-                            alt={image.title}
-                            className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
-                          />
-                        </div>
+                        <button 
+                          onClick={() => setSelectedBike({ model: bike.model, image })}
+                          className="w-full h-full cursor-zoom-in"
+                        >
+                          <div className="w-full h-full overflow-hidden group">
+                            <img
+                              src={image.url}
+                              alt={image.title}
+                              className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
+                            />
+                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                          </div>
+                        </button>
                       </SwiperSlide>
                     ))}
                   </Swiper>
                 </div>
-                <div className="p-4 text-center">
-                <Link
+                <div className="p-4">
+                  <Link
                     to={`/products/${bike.model.toLowerCase().replace(' ', '-')}`}
-                    className="text-xl font-bold  hover:text-blue-700"
+                    className="text-xl font-bold hover:text-blue-700 transition-colors block text-center"
                   >
                     {bike.model}
                   </Link>
-                    {/* <h3 className="text-xl font-bold text-center hover:text-blue-600">{bike.model}</h3> */}
                 </div>
               </div>
             ))}
@@ -477,7 +492,7 @@ function Home() {
               showAllBikes ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
             }`}>
               {extraBikes.map((bike) => (
-                <div key={bike.model} className="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div key={bike.model} className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                   <div className="relative h-64">
                     <Swiper
                       pagination={{ clickable: true }}
@@ -489,28 +504,34 @@ function Home() {
                         disableOnInteraction: false,
                         pauseOnMouseEnter: true
                       }}
-                      className="h-full swiper-hover-buttons"
+                      className="h-full group"
                     >
                       {bike.images?.map((image, imgIndex) => (
                         <SwiperSlide key={imgIndex} className="overflow-hidden">
-                          <div className="w-full h-full overflow-hidden">
-                            <img
-                              src={image.url}
-                              alt={image.title}
-                              className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
-                            />
-                          </div>
+                          <button 
+                            onClick={() => setSelectedBike({ model: bike.model, image })}
+                            className="w-full h-full cursor-zoom-in"
+                          >
+                            <div className="w-full h-full overflow-hidden group">
+                              <img
+                                src={image.url}
+                                alt={image.title}
+                                className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
+                              />
+                              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                            </div>
+                          </button>
                         </SwiperSlide>
                       ))}
                     </Swiper>
                   </div>
-                  <div className="p-4 text-center">
-                  <Link
-                    to={`/products/${bike.model.toLowerCase().replace(' ', '-')}`}
-                    className="text-xl font-bold  hover:text-blue-700"
-                  >
-                    {bike.model}
-                  </Link>
+                  <div className="p-4">
+                    <Link
+                      to={`/products/${bike.model.toLowerCase().replace(' ', '-')}`}
+                      className="text-xl font-bold hover:text-blue-700 transition-colors block text-center"
+                    >
+                      {bike.model}
+                    </Link>
                   </div>
                 </div>
               ))}
@@ -531,60 +552,74 @@ function Home() {
       <section className="py-16 bg-white">
         <div className="container-custom">
           <h2 className="section-title">Our Trusted Brands</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {initialBrands.map((brand) => (
               <div key={brand.brand} className="card overflow-hidden group">
-                <div className="relative h-48">
-                  <img
-                    src={brand.image}
-                    alt={brand.brand}
-                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <h3 className="absolute bottom-4 left-4 text-2xl font-bold text-white">
+                <Link
+                  to={`/products/${brand.brand.toLowerCase().replace(' ', '-')}`}
+                  className="block relative h-48 group"
+                >
+                  <div className="absolute inset-0 bg-white group-hover:bg-blue-50/80 transition-all duration-300">
+                    <img
+                      src={brand.image}
+                      alt={brand.brand}
+                      className="w-full h-full object-contain p-4 transform group-hover:scale-110 transition-all duration-300"
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
+                  <h3 className="absolute bottom-4 left-4 text-2xl font-bold text-white opacity-100 group-hover:opacity-0 transition-opacity duration-300">
                     {brand.brand}
                   </h3>
-                </div>
+                </Link>
                 <div className="p-4">
                   <p className="text-gray-600">{brand.description}</p>
                   <Link
                     to={`/products/${brand.brand.toLowerCase().replace(' ', '-')}`}
-                    className="inline-flex items-center mt-4 text-blue-600 hover:text-blue-700"
+                    className="inline-flex items-center mt-4 text-blue-600 hover:text-blue-700 group/link"
                   >
-                    View Collection <ArrowRight className="h-4 w-4 ml-2" />
+                    View Collection 
+                    <ArrowRight className="h-4 w-4 ml-2 transform group-hover/link:translate-x-1 transition-transform" />
                   </Link>
                 </div>
               </div>
             ))}
-            <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 col-span-full transition-all duration-500 ease-in-out ${
+
+            <div className={`grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-6 col-span-full transition-all duration-500 ease-in-out ${
               showAllBrands ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
             }`}>
               {extraBrands.map((brand) => (
                 <div key={brand.brand} className="card overflow-hidden group">
-                  <div className="relative h-48">
-                    <img
-                      src={brand.image}
-                      alt={brand.brand}
-                      className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <h3 className="absolute bottom-4 left-4 text-2xl font-bold text-white">
+                  <Link
+                    to={`/products/${brand.brand.toLowerCase().replace(' ', '-')}`}
+                    className="block relative h-48 group"
+                  >
+                    <div className="absolute inset-0 bg-white group-hover:bg-blue-50/80 transition-all duration-300">
+                      <img
+                        src={brand.image}
+                        alt={brand.brand}
+                        className="w-full h-full object-contain p-4 transform group-hover:scale-110 transition-all duration-300"
+                      />
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
+                    <h3 className="absolute bottom-4 left-4 text-2xl font-bold text-white opacity-100 group-hover:opacity-0 transition-opacity duration-300">
                       {brand.brand}
                     </h3>
-                  </div>
+                  </Link>
                   <div className="p-4">
                     <p className="text-gray-600">{brand.description}</p>
                     <Link
                       to={`/products/${brand.brand.toLowerCase().replace(' ', '-')}`}
-                      className="inline-flex items-center mt-4 text-blue-600 hover:text-blue-700"
+                      className="inline-flex items-center mt-4 text-blue-600 hover:text-blue-700 group/link"
                     >
-                      View Collection <ArrowRight className="h-4 w-4 ml-2" />
+                      View Collection 
+                      <ArrowRight className="h-4 w-4 ml-2 transform group-hover/link:translate-x-1 transition-transform" />
                     </Link>
                   </div>
                 </div>
               ))}
             </div>
           </div>
+
           <div className="text-center mt-8">
             <button
               onClick={() => setShowAllBrands(!showAllBrands)}
@@ -598,40 +633,153 @@ function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gray-100 relative overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0 bg-cover bg-center opacity-30" style={{ backgroundImage: "url('/path/to/your/background-image.jpg')" }} />
-        
-        <div className="container-custom text-center text-gray-700 relative z-10">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 ">
-            Ready to Find Your Perfect Ride?
-          </h2>
-          <p className="text-xl text-gray-500 max-w-2xl mx-auto drop-shadow-md mb-4">
-            Visit our showroom today or Get Quotation for your dream bike
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/contact" className="btn-primary bg-white text-blue-600 hover:bg-gray-100 transition duration-300 transform hover:scale-105">
-              Visit Showroom
-            </Link>
-            <Link to="/quotation" className="btn-primary bg-blue-700 hover:bg-blue-800 transition duration-300 transform hover:scale-105">
-              Get Quotation
-            </Link>
-          </div>
+      <section className="py-16 relative overflow-hidden bg-gradient-to-br from-gray-50 to-white">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" 
+               style={{
+                 backgroundImage: 'url("https://media.lordicon.com/icons/wired/gradient/843-bike.svg")',
+                 backgroundSize: '60px 60px',
+                 backgroundRepeat: 'repeat'
+               }}
+          />
         </div>
+        
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="container-custom relative z-10"
+        >
+          <div className="text-center max-w-4xl mx-auto">
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <img 
+                src="/SV.png" 
+                alt="Motorcycle" 
+                className="w-12 h-12 object-contain"
+              />
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+                Ready to Find Your Perfect Ride?
+              </h2>
+            </div>
+            
+            <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+              Visit our showroom today or get a personalized quotation for your dream bike
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link 
+                to="/contact" 
+                className="group flex items-center justify-center gap-2 px-6 py-3 bg-white 
+                         text-blue-600 rounded-lg border-2 border-blue-600 hover:bg-blue-50 
+                         transition-all duration-300 transform hover:scale-105"
+              >
+                <MapPin className="w-5 h-5 transition-transform group-hover:-translate-y-1" />
+                <span>Visit Showroom</span>
+              </Link>
+              
+              <Link 
+                to="/quotation" 
+                className="group flex items-center justify-center gap-2 px-6 py-3 
+                         bg-blue-600 text-white rounded-lg hover:bg-blue-700 
+                         transition-all duration-300 transform hover:scale-105"
+              >
+                <FileText className="w-5 h-5 transition-transform group-hover:-translate-y-1" />
+                <span>Get Quotation</span>
+              </Link>
+            </div>
+          </div>
+        </motion.div>
       </section>
 
       {/* About Section */}
-      <section className="py-16 bg-blue-600">
-        <div className="container-custom text-center">
-          <h2 className="text-4xl font-bold text-white mb-4">Our Journey</h2>
-          <p className="text-lg text-gray-200 mb-6">
-            We are dedicated to providing the best two-wheeler experience, combining quality, performance, and customer satisfaction.
-          </p>
-          <Link to="/about" className="btn-primary bg-white hover:bg-gray-200 text-blue-600 font-semibold py-2 px-4 rounded-lg transition duration-300">
-            Learn More
-          </Link>
+      <section className="py-16 relative overflow-hidden bg-gradient-to-br from-blue-700 to-blue-900">
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-0">
+          <img 
+            src="/showroom-bg.jpg" 
+            alt="Showroom" 
+            className="w-full h-full object-cover opacity-10"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-blue-900/50 to-blue-900/90" />
         </div>
+
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="container-custom relative z-10"
+        >
+          <div className="text-center max-w-4xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 relative inline-block">
+              Our Journey
+              <div className="absolute bottom-0 left-0 w-full h-1 bg-blue-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+            </h2>
+
+            <p className="text-lg md:text-xl text-gray-200 mb-8">
+              We are dedicated to providing the best two-wheeler experience, combining quality, 
+              performance, and customer satisfaction.
+            </p>
+
+            {/* Timeline */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <motion.div 
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="bg-white/10 backdrop-blur-sm rounded-lg p-4"
+              >
+                <div className="text-4xl mb-2">🏆</div>
+                <h3 className="text-xl font-bold text-white mb-2">Established 2019</h3>
+                <p className="text-gray-300">Started our journey with a vision</p>
+              </motion.div>
+
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                viewport={{ once: true }}
+                className="bg-white/10 backdrop-blur-sm rounded-lg p-4"
+              >
+                <div className="text-4xl mb-2">🛵</div>
+                <h3 className="text-xl font-bold text-white mb-2">10,000+ Bikes</h3>
+                <p className="text-gray-300">Delivered to happy customers</p>
+              </motion.div>
+
+              <motion.div 
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                viewport={{ once: true }}
+                className="bg-white/10 backdrop-blur-sm rounded-lg p-4"
+              >
+                <div className="text-4xl mb-2">⭐</div>
+                <h3 className="text-xl font-bold text-white mb-2">8+ Brands</h3>
+                <p className="text-gray-300">Premium partnerships</p>
+              </motion.div>
+            </div>
+
+            <Link 
+              to="/about" 
+              className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-600 
+                       rounded-lg hover:bg-blue-50 transition-all duration-300 transform hover:scale-105"
+            >
+              <span>Explore Our Story</span>
+              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </div>
+        </motion.div>
       </section>
+
+      {/* Add Modal */}
+      <BikePreviewModal
+        isOpen={!!selectedBike}
+        onClose={() => setSelectedBike(null)}
+        bike={selectedBike || { model: '', image: { url: '', title: '' } }}
+      />
     </div>
   );
 }

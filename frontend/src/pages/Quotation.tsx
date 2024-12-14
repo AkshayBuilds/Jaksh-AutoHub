@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Calculator } from 'lucide-react';
+import { 
+  User, Phone, Mail, Bike, CreditCard, Calculator, 
+  Calendar, RefreshCw, HelpCircle, Send, MessageCircle, ArrowRight 
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 // Constants
 const INTEREST_RATE = 10.99;
 const TENURE_OPTIONS = [3, 6, 12, 18, 24, 30, 36];
@@ -394,272 +398,384 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8 mt-20">
-      <div className="max-w-3xl mx-auto">
-        <div className="bg-white rounded-2xl shadow-xl p-8">
-          <div className="flex items-center justify-center mb-4"> <Calculator className="h-14 w-14 text-blue-600"/></div>
-          <div className="flex items-center justify-center gap-3 mb-8">
-            <h1 className="section-title mb-4">Get Your Bike Quote</h1>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50 py-12 px-4 sm:px-6 lg:px-8 mt-20">
+      <div className="max-w-7xl mx-auto">
+        {/* Hero Section */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
+          <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            Get Your Dream Bike Quote
+          </h1>
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            Fill out the form below and we'll provide you with a detailed quote for your desired bike.
+            Our team will contact you within 24 hours.
+          </p>
+        </motion.div>
+
+        {/* Main Content Grid */}
+        <div className="grid lg:grid-cols-3 gap-8">
+          {/* Left Side - Form */}
+          <div className="lg:col-span-2">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="bg-white rounded-2xl shadow-xl p-8 relative overflow-hidden"
+            >
+              {/* Background Pattern */}
+              <div className="absolute inset-0 opacity-5">
+                <div className="absolute inset-0" 
+                     style={{
+                       backgroundImage: 'url("/pattern-bikes.png")',
+                       backgroundSize: '60px 60px',
+                       backgroundRepeat: 'repeat'
+                     }}
+                />
+              </div>
+
+              {/* Form Header */}
+              <div className="relative flex items-center justify-center mb-8">
+                <Calculator className="h-14 w-14 text-blue-600"/>
+              </div>
+
+              <form className="relative space-y-8" onSubmit={handleChange} method='post'>
+                {/* Personal Information */}
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                  <div className="relative">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <User className="h-5 w-5 text-gray-400" />
+                      </div>
+                      <input
+                        type="text"
+                        name="name"
+                        placeholder="Enter your full name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        className="pl-10 w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="relative">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <Phone className="h-5 w-5 text-gray-400" />
+                      </div>
+                      <input
+                        type="tel"
+                        name="phone"
+                        placeholder="Enter your phone number"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        className="pl-10 w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                        required
+                        maxLength={10}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="relative">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <Mail className="h-5 w-5 text-gray-400" />
+                      </div>
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email address"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        className="pl-10 w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                        required
+                        pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Vehicle Selection with enhanced styling */}
+                  <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                    <div className="relative">
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Brand</label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <Bike className="h-5 w-5 text-gray-400" />
+                        </div>
+                        <select
+                          name="brand"
+                          value={formData.brand}
+                          onChange={handleInputChange}
+                          className="pl-10 w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                          required
+                        >
+                          <option value="">Select Brand</option>
+                          {VEHICLE_DATA.map(brand => (
+                            <option key={brand.brand} value={brand.brand}>{brand.brand}</option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="relative">
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Model</label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <Bike className="h-5 w-5 text-gray-400" />
+                        </div>
+                        <select
+                          name="model"
+                          value={formData.model}
+                          onChange={handleInputChange}
+                          className="pl-10 w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                          required
+                        >
+                          <option value="">Select Model</option>
+                          {models.map(model => (
+                            <option key={model.name} value={model.name}>{model.name}</option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Payment Details */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Payment Type</label>
+                    <div className="mt-1 flex gap-4">
+                      <label className="inline-flex items-center">
+                        <input
+                          type="radio"
+                          name="paymentType"
+                          value="cash"
+                          checked={formData.paymentType === 'cash'}
+                          onChange={handleInputChange}
+                          className="form-radio text-indigo-600"
+                        />
+                        <span className="ml-2">Cash</span>
+                      </label>
+                      <label className="inline-flex items-center">
+                        <input
+                          type="radio"
+                          name="paymentType"
+                          value="loan"
+                          checked={formData.paymentType === 'loan'}
+                          onChange={handleInputChange}
+                          className="form-radio text-indigo-600"
+                        />
+                        <span className="ml-2">Loan</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  {formData.paymentType === 'loan' && (
+                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700">Down Payment</label>
+                        <input
+                          type="number"
+                          name="downPayment"
+                          value={formData.downPayment}
+                          onChange={handleInputChange}
+                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          min="0"
+                          max={selectedModelPrice}
+                          required
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700">Tenure (months)</label>
+                        <select
+                          name="tenure"
+                          value={formData.tenure}
+                          onChange={handleInputChange}
+                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          required
+                        >
+                          {TENURE_OPTIONS.map(t => (
+                            <option key={t} value={t}>{t} months</option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                  )}
+                   <div className="space-y-6">
+                    <h2 className="text-xl font-semibold text-gray-900">Exchange Options</h2>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Do you have a vehicle for exchange?
+                      </label>
+                      <div className="flex space-x-4">
+                        <label className="inline-flex items-center">
+                          <input
+                            type="radio"
+                            name="exchange"
+                            value="yes"
+                            checked={formData.exchangeVehicle === 'yes'}
+                            onChange={e => setFormData({...formData, exchangeVehicle: e.target.value as 'yes' | 'no'})}
+                            className="form-radio text-blue-600"
+                          />
+                          <span className="ml-2">Yes</span>
+                        </label>
+                        <label className="inline-flex items-center">
+                          <input
+                            type="radio"
+                            name="exchange"
+                            value="no"
+                            checked={formData.exchangeVehicle === 'no'}
+                            onChange={e => setFormData({...formData, exchangeVehicle: e.target.value as 'yes' | 'no'})}
+                            className="form-radio text-blue-600"
+                          />
+                          <span className="ml-2">No</span>
+                        </label>
+                      </div>
+                    </div>
+                    {formData.exchangeVehicle === 'yes' && (
+                      <div>
+                        <label htmlFor="oldVehicleDetails" className="block text-sm font-medium text-gray-700">
+                          Old Vehicle Details
+                        </label>
+                        <textarea
+                          id="oldVehicleDetails"
+                          rows={3}
+                          placeholder="Please provide details of your old vehicle (Brand, Model, Year, Condition)"
+                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                          value={formData.oldVehicleDetails}
+                          onChange={e => setFormData({...formData, oldVehicleDetails: e.target.value})}
+                        ></textarea>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Quotation Summary with enhanced styling */}
+                  {selectedModelPrice > 0 && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 shadow-sm"
+                    >
+                      <div className="flex items-center justify-center gap-3 mb-4">
+                        <Calculator className="w-6 h-6 text-indigo-600" />
+                        <h2 className="text-xl font-semibold text-gray-900">Quotation Summary</h2>
+                      </div>
+                      <div className="space-y-3">
+                        <p className="text-gray-700">On-Road Price: ₹{selectedModelPrice.toLocaleString()}</p>
+                        {formData.paymentType === 'loan' && formData.downPayment && (
+                          <>
+                            <p className="text-gray-700">Down Payment: ₹{Number(formData.downPayment).toLocaleString()}</p>
+                            <p className="text-gray-700">
+                              Loan Amount: ₹{(selectedModelPrice - Number(formData.downPayment)).toLocaleString()}
+                            </p>
+                            <p className="text-gray-700">Tenure: {formData.tenure} months</p>
+                            <p className="text-xl font-bold text-indigo-600">Monthly EMI: ₹{emi.toLocaleString()}</p>
+                          </>
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {/* Submit Button */}
+                  <div className="flex flex-col sm:flex-row gap-4 justify-between items-center">
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full sm:w-auto group relative flex justify-center py-3 px-6 
+                               bg-blue-600 text-white rounded-lg font-medium
+                               hover:bg-blue-700 focus:outline-none focus:ring-2 
+                               focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300"
+                    >
+                      {isSubmitting ? (
+                        <div className="flex items-center">
+                          <RefreshCw className="animate-spin -ml-1 mr-3 h-5 w-5" />
+                          <span>Processing...</span>
+                        </div>
+                      ) : (
+                        <div className="flex items-center">
+                          <Send className="mr-2 h-5 w-5 transform group-hover:translate-x-1 transition-transform" />
+                          <span>Get Your Quote Now</span>
+                        </div>
+                      )}
+                    </button>
+
+                    {/* Help Button */}
+                    <Link
+                      to="/contact"
+                      className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors"
+                    >
+                      <HelpCircle className="h-5 w-5" />
+                      <span>Need Help?</span>
+                    </Link>
+                  </div>
+                </div>
+              </form>
+            </motion.div>
           </div>
 
-          <form className="space-y-6" onSubmit={handleChange} method='post'>
-            {/* Personal Information */}
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Phone</label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  onInput={(e: React.FormEvent<HTMLInputElement>) => {
-                    // Allow only digits and limit to 10 characters
-                    const value = e.currentTarget.value.replace(/\D/g, '').slice(0, 10);
-                    e.currentTarget.value = value;
-                  }}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                  required
-                  maxLength={10} // Limit input length to 10
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 required">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                  required
-                  pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$" // Basic email validation pattern
-                />
-              </div>
-
-              {/* Vehicle Selection */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Brand</label>
-                <select
-                  name="brand"
-                  value={formData.brand}
-                  onChange={handleInputChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                  required
+          {/* Right Side - Assistance Section */}
+          <div className="space-y-6">
+            {/* Need Assistance Card */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl shadow-xl p-8 text-white"
+            >
+              <h3 className="text-2xl font-bold mb-4">Need Assistance?</h3>
+              <p className="text-lg mb-6">Our team is here to help you make the right choice for your dream bike.</p>
+              <div className="space-y-4">
+                <Link
+                  to="/contact"
+                  className="flex items-center gap-3 bg-white/10 backdrop-blur-sm w-full px-4 py-3 rounded-xl
+                           hover:bg-white/20 transition-all duration-300"
                 >
-                  <option value="">Select Brand</option>
-                  {VEHICLE_DATA.map(brand => (
-                    <option key={brand.brand} value={brand.brand}>{brand.brand}</option>
-                  ))}
-                </select>
-              </div>
+                  <Phone className="h-5 w-5" />
+                  <div className="text-left">
+                    <p className="font-semibold">Call Us</p>
+                    <p className="text-sm text-gray-200">+91 9998303810</p>
+                  </div>
+                </Link>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Model</label>
-                <select
-                  name="model"
-                  value={formData.model}
-                  onChange={handleInputChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                  required
+                <a
+                  href="https://wa.me/+919998303810"
+                  target="_blank"
+                  className="flex items-center gap-3 bg-green-500 w-full px-4 py-3 rounded-xl
+                           hover:bg-green-600 transition-all duration-300"
                 >
-                  <option value="">Select Model</option>
-                  {models.map(model => (
-                    <option key={model.name} value={model.name}>{model.name}</option>
-                  ))}
-                </select>
+                  <MessageCircle className="h-5 w-5" />
+                  <div className="text-left">
+                    <p className="font-semibold">WhatsApp</p>
+                    <p className="text-sm text-gray-100">Chat with us</p>
+                  </div>
+                </a>
               </div>
-            </div>
-
-            {/* Payment Details */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Payment Type</label>
-              <div className="mt-1 flex gap-4">
-                <label className="inline-flex items-center">
-                  <input
-                    type="radio"
-                    name="paymentType"
-                    value="cash"
-                    checked={formData.paymentType === 'cash'}
-                    onChange={handleInputChange}
-                    className="form-radio text-indigo-600"
-                  />
-                  <span className="ml-2">Cash</span>
-                </label>
-                <label className="inline-flex items-center">
-                  <input
-                    type="radio"
-                    name="paymentType"
-                    value="loan"
-                    checked={formData.paymentType === 'loan'}
-                    onChange={handleInputChange}
-                    className="form-radio text-indigo-600"
-                  />
-                  <span className="ml-2">Loan</span>
-                </label>
-              </div>
-            </div>
-
-            {formData.paymentType === 'loan' && (
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">Down Payment</label>
-                  <input
-                    type="number"
-                    name="downPayment"
-                    value={formData.downPayment}
-                    onChange={handleInputChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    min="0"
-                    max={selectedModelPrice}
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">Tenure (months)</label>
-                  <select
-                    name="tenure"
-                    value={formData.tenure}
-                    onChange={handleInputChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    required
-                  >
-                    {TENURE_OPTIONS.map(t => (
-                      <option key={t} value={t}>{t} months</option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-            )}
-             <div className="space-y-6">
-              <h2 className="text-xl font-semibold text-gray-900">Exchange Options</h2>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Do you have a vehicle for exchange?
-                </label>
-                <div className="flex space-x-4">
-                  <label className="inline-flex items-center">
-                    <input
-                      type="radio"
-                      name="exchange"
-                      value="yes"
-                      checked={formData.exchangeVehicle === 'yes'}
-                      onChange={e => setFormData({...formData, exchangeVehicle: e.target.value as 'yes' | 'no'})}
-                      className="form-radio text-blue-600"
-                    />
-                    <span className="ml-2">Yes</span>
-                  </label>
-                  <label className="inline-flex items-center">
-                    <input
-                      type="radio"
-                      name="exchange"
-                      value="no"
-                      checked={formData.exchangeVehicle === 'no'}
-                      onChange={e => setFormData({...formData, exchangeVehicle: e.target.value as 'yes' | 'no'})}
-                      className="form-radio text-blue-600"
-                    />
-                    <span className="ml-2">No</span>
-                  </label>
-                </div>
-              </div>
-              {formData.exchangeVehicle === 'yes' && (
-                <div>
-                  <label htmlFor="oldVehicleDetails" className="block text-sm font-medium text-gray-700">
-                    Old Vehicle Details
-                  </label>
-                  <textarea
-                    id="oldVehicleDetails"
-                    rows={3}
-                    placeholder="Please provide details of your old vehicle (Brand, Model, Year, Condition)"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                    value={formData.oldVehicleDetails}
-                    onChange={e => setFormData({...formData, oldVehicleDetails: e.target.value})}
-                  ></textarea>
-                </div>
-              )}
-            </div>
-
-            {/* Quotation Summary */}
-            {selectedModelPrice > 0 && (
-              <div className="mt-8 bg-indigo-50 rounded-lg p-6">
-                <div className="flex items-center justify-center gap-3 mb-4">
-                  <Calculator className="w-6 h-6 text-indigo-600" />
-                  <h2 className="text-xl font-semibold text-gray-900">Quotation Summary</h2>
-                </div>
-                <div className="space-y-3">
-                  <p className="text-gray-700">On-Road Price: ₹{selectedModelPrice.toLocaleString()}</p>
-                  {formData.paymentType === 'loan' && formData.downPayment && (
-                    <>
-                      <p className="text-gray-700">Down Payment: ₹{Number(formData.downPayment).toLocaleString()}</p>
-                      <p className="text-gray-700">
-                        Loan Amount: ₹{(selectedModelPrice - Number(formData.downPayment)).toLocaleString()}
-                      </p>
-                      <p className="text-gray-700">Tenure: {formData.tenure} months</p>
-                      <p className="text-xl font-bold text-indigo-600">Monthly EMI: ₹{emi.toLocaleString()}</p>
-                    </>
-                  )}
-                </div>
-              </div>
-            )}
-
-            <div>
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full inline-flex justify-center rounded-md border border-transparent bg-blue-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-              >
-                {isSubmitting ? (
-                  <>
-                    <svg 
-                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" 
-                      xmlns="http://www.w3.org/2000/svg" 
-                      fill="none" 
-                      viewBox="0 0 24 24"
-                    >
-                      <circle 
-                        className="opacity-25" 
-                        cx="12" 
-                        cy="12" 
-                        r="10" 
-                        stroke="currentColor" 
-                        strokeWidth="4"
-                      />
-                      <path 
-                        className="opacity-75" 
-                        fill="currentColor" 
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      />
-                    </svg>
-                    Submitting...
-                  </>
-                ) : (
-                  'Submit'
-                )}
-              </button>
-            </div>
-
-            {/* Contact Us Link */}
-            <div className="mt-4 text-right">
+            </motion.div>
+            {/* Special Offer Card */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              className="bg-gradient-to-br from-yellow-500 to-orange-500 rounded-2xl shadow-xl p-8 text-white"
+            >
+              <h3 className="text-xl font-bold mb-2">Special Offer!</h3>
+              <p className="mb-4">Get exclusive deals and special financing options on selected models.</p>
               <Link
-                to="/contact" // Link to the Contact Us page
-                className="text-blue-600 hover:underline"
+                to="/products"
+                className="inline-flex items-center gap-2 bg-white text-orange-600 px-4 py-2 rounded-lg
+                         hover:bg-orange-50 transition-colors"
               >
-                Contact Us
+                View Models
+                <ArrowRight className="h-4 w-4" />
               </Link>
-            </div>
-          </form>
+            </motion.div>
+          </div>
         </div>
       </div>
     </div>
