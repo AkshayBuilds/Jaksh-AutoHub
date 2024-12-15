@@ -9,7 +9,6 @@ import BrandPage from './pages/BrandPage';
 import Offers from './pages/Offers';
 import Contact from './pages/Contact';
 import Quotation from './pages/Quotation';
-import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
@@ -17,7 +16,6 @@ function App() {
       <div className="flex flex-col min-h-screen">
         <Navbar />
         <main className="flex-grow">
-          <ScrollToTop />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />

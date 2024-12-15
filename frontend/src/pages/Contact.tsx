@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   Phone, Mail, MapPin, Clock, User, MessageSquare, 
-  Send, ExternalLink, MessageCircle, Star 
+  Send, ExternalLink, MessageCircle, Star, RefreshCw 
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -91,93 +91,119 @@ function Contact() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="form-group">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Full Name
                     </label>
-                    <div className="relative">
+                    <div className="relative group">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <User className="h-5 w-5 text-gray-400" />
+                        <User className="h-5 w-5 text-blue-500 opacity-70 group-hover:opacity-100 transition-all duration-300" />
                       </div>
                       <input
                         type="text"
                         value={formData.name}
                         onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                        className="pl-10 w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
-                        placeholder="John Doe"
+                        className="peer w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-100 rounded-xl
+                                 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50
+                                 transition-all duration-300 outline-none text-gray-700
+                                 hover:border-blue-200 shadow-sm text-base font-medium"
                         required
                       />
+                      <span className="absolute left-12 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none
+                                     transition-opacity duration-300 peer-focus:opacity-0 peer-valid:opacity-0 text-base">
+                        Enter your full name
+                      </span>
                     </div>
                   </div>
 
                   <div className="form-group">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Phone Number
                     </label>
-                    <div className="relative">
+                    <div className="relative group">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <Phone className="h-5 w-5 text-gray-400" />
+                        <Phone className="h-5 w-5 text-blue-500 opacity-70 group-hover:opacity-100 transition-all duration-300" />
                       </div>
                       <input
                         type="tel"
                         value={formData.phone}
                         onChange={handlePhoneInput}
-                        className="pl-10 w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
-                        placeholder="9998303810"
+                        className="peer w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-100 rounded-xl
+                                 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50
+                                 transition-all duration-300 outline-none text-gray-700
+                                 hover:border-blue-200 shadow-sm text-base font-medium"
                         required
+                        maxLength={10}
                       />
+                      <span className="absolute left-12 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none
+                                     transition-opacity duration-300 peer-focus:opacity-0 peer-valid:opacity-0 text-base">
+                        Enter your phone number
+                      </span>
                     </div>
                   </div>
                 </div>
 
                 <div className="form-group">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Email Address
                   </label>
-                  <div className="relative">
+                  <div className="relative group">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <Mail className="h-5 w-5 text-gray-400" />
+                      <Mail className="h-5 w-5 text-blue-500 opacity-70 group-hover:opacity-100 transition-all duration-300" />
                     </div>
                     <input
                       type="email"
                       value={formData.email}
                       onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                      className="pl-10 w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
-                      placeholder="john@example.com"
+                      className="peer w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-100 rounded-xl
+                               focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50
+                               transition-all duration-300 outline-none text-gray-700
+                               hover:border-blue-200 shadow-sm text-base font-medium"
                       required
                     />
+                    <span className="absolute left-12 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none
+                                   transition-opacity duration-300 peer-focus:opacity-0 peer-valid:opacity-0 text-base">
+                      Enter your email address
+                    </span>
                   </div>
                 </div>
 
                 <div className="form-group">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Your Message
                   </label>
-                  <div className="relative">
+                  <div className="relative group">
                     <div className="absolute top-3 left-3 pointer-events-none">
-                      <MessageSquare className="h-5 w-5 text-gray-400" />
+                      <MessageSquare className="h-5 w-5 text-blue-500 opacity-70 group-hover:opacity-100 transition-all duration-300" />
                     </div>
                     <textarea
                       rows={4}
                       value={formData.message}
                       onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
-                      className="pl-10 w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
-                      placeholder="How can we help you?"
+                      className="peer w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-100 rounded-xl
+                               focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50
+                               transition-all duration-300 outline-none text-gray-700
+                               hover:border-blue-200 shadow-sm text-base font-medium resize-none"
                       required
-                    ></textarea>
+                    />
+                    <span className="absolute left-12 top-[1.125rem] text-gray-400 pointer-events-none
+                                   transition-opacity duration-300 peer-focus:opacity-0 peer-valid:opacity-0 text-base">
+                      How can we help you?
+                    </span>
                   </div>
                 </div>
 
                 <button
                   type="submit"
                   disabled={status === 'loading'}
-                  className="w-full group relative flex justify-center py-3 px-6 
-                           bg-blue-600 text-white rounded-lg font-medium
+                  className="w-full group relative flex justify-center py-3.5 px-6 
+                           bg-blue-600 text-white rounded-xl font-medium
                            hover:bg-blue-700 focus:outline-none focus:ring-2 
-                           focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300"
+                           focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300
+                           transform hover:scale-[1.02]"
                 >
                   {status === 'loading' ? (
                     <div className="flex items-center">
-                      <div className="animate-spin mr-2">⌛</div>
+                      <RefreshCw className="animate-spin -ml-1 mr-3 h-5 w-5" />
                       <span>Sending...</span>
                     </div>
                   ) : (
@@ -246,14 +272,14 @@ function Contact() {
 
                 <a 
                   href="mailto:sidhhivinayakautoworld@gmail.com"
-                  className="flex items-center space-x-4 p-4 rounded-lg hover:bg-blue-50 transition-colors"
+                  className="flex items-start space-x-4 p-4 rounded-lg hover:bg-blue-50 transition-colors"
                 >
-                  <div className="p-3 bg-blue-100 rounded-full">
+                  <div className="p-3 bg-blue-100 rounded-full flex-shrink-0">
                     <Mail className="h-6 w-6 text-blue-600" />
                   </div>
-                  <div>
+                  <div className="flex-grow">
                     <p className="font-medium text-gray-900">Email</p>
-                    <p className="text-blue-600">sidhhivinayakautoworld@gmail.com</p>
+                    <p className="text-blue-600 break-all">sidhhivinayakautoworld@gmail.com</p>
                   </div>
                 </a>
 

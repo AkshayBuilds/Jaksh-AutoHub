@@ -5,10 +5,10 @@ import { motion } from 'framer-motion';
 
 function HeroSection() {
   const backgrounds = [
-    "url('/herosec2.png')",
-    "url('/herosec1.png')",
-    "url('/herosec3.png')", 
-    "url('/herosec4.png')",
+    "url('/herosec2.webp')",
+    "url('/herosec1.webp')",
+    "url('/herosec3.webp')", 
+    "url('/herosec4.webp')",
   ];
 
   const [currentBg, setCurrentBg] = useState(0);

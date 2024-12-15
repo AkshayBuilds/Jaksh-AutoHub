@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   User, Phone, Mail, Bike, CreditCard, Calculator, 
-  Calendar, RefreshCw, HelpCircle, Send, MessageCircle, ArrowRight 
+  Calendar, RefreshCw, HelpCircle, Send, MessageCircle, ArrowRight, ChevronDown 
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -272,6 +272,17 @@ const VEHICLE_DATA = [
   },
 ];
 
+const BRAND_LOGOS = {
+  "HERO": "/herocompany.png",
+  "Honda": "/hondalogomain.png",
+  "TVS": "/tvslogo.png",
+  "Suzuki": "/suzukilogo.png",
+  "Yamaha": "/yamahalogo.png",
+  "Royal Enfield": "/royalenfieldlogo.png",
+  "Bajaj": "/bajajlogo.png",
+  "KTM": "/ktmlogo.png"
+};
+
 interface FormData {
   name: string;
   phone: string;
@@ -378,11 +389,7 @@ function App() {
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.detail || "Failed to send quotation");
-      }
-
-      const data = await response.json();
-      alert("Quotation sent successfully!");
-      
+      }      
       // Reset form to initial state after successful submission
       setFormData(initialFormData);
       setSelectedModelPrice(0);
@@ -446,274 +453,358 @@ function App() {
                 {/* Personal Information */}
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                   <div className="relative">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <User className="h-5 w-5 text-gray-400" />
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      Full Name
+                    </label>
+                    <div className="relative group">
+                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <User className="h-5 w-5 text-blue-500 opacity-70 group-hover:opacity-100 transition-all duration-300" />
                       </div>
                       <input
                         type="text"
                         name="name"
-                        placeholder="Enter your full name"
                         value={formData.name}
                         onChange={handleInputChange}
-                        className="pl-10 w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                        className="peer w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-100 rounded-xl
+                                 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50
+                                 transition-all duration-300 outline-none text-gray-700
+                                 hover:border-blue-200 shadow-sm text-base font-medium"
                         required
                       />
+                      <span className="absolute left-12 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none
+                                     transition-opacity duration-300 peer-focus:opacity-0 peer-valid:opacity-0 text-base">
+                        Enter your full name
+                      </span>
                     </div>
                   </div>
 
                   <div className="relative">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <Phone className="h-5 w-5 text-gray-400" />
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      Phone Number
+                    </label>
+                    <div className="relative group">
+                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <Phone className="h-5 w-5 text-blue-500 opacity-70 group-hover:opacity-100 transition-all duration-300" />
                       </div>
                       <input
                         type="tel"
                         name="phone"
-                        placeholder="Enter your phone number"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        className="pl-10 w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                        className="peer w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-100 rounded-xl
+                                 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50
+                                 transition-all duration-300 outline-none text-gray-700
+                                 hover:border-blue-200 shadow-sm text-base font-medium"
                         required
                         maxLength={10}
                       />
+                      <span className="absolute left-12 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none
+                                     transition-opacity duration-300 peer-focus:opacity-0 text-base">
+                        Enter your phone number
+                      </span>
                     </div>
                   </div>
 
                   <div className="relative">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <Mail className="h-5 w-5 text-gray-400" />
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      Email Address
+                    </label>
+                    <div className="relative group">
+                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <Mail className="h-5 w-5 text-blue-500 opacity-70 group-hover:opacity-100 transition-all duration-300" />
                       </div>
                       <input
                         type="email"
                         name="email"
-                        placeholder="Enter your email address"
                         value={formData.email}
                         onChange={handleInputChange}
-                        className="pl-10 w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                        className="peer w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-100 rounded-xl
+                                 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50
+                                 transition-all duration-300 outline-none text-gray-700
+                                 hover:border-blue-200 shadow-sm text-base font-medium"
                         required
-                        pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
                       />
+                      <span className="absolute left-12 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none
+                                     transition-opacity duration-300 peer-focus:opacity-0 text-base">
+                        Enter your email address
+                      </span>
                     </div>
                   </div>
 
-                  {/* Vehicle Selection with enhanced styling */}
+                  {/* Vehicle Selection */}
+                  <div className="relative">
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      Select Brand
+                    </label>
+                    <div className="relative group">
+                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        {formData.brand ? (
+                          <img
+                            src={BRAND_LOGOS[formData.brand as keyof typeof BRAND_LOGOS]}
+                            alt={`${formData.brand} logo`}
+                            className="h-5 w-auto object-contain group-hover:scale-110 transition-transform duration-300"
+                          />
+                        ) : (
+                          <Bike className="h-5 w-5 text-gray-400 group-hover:text-blue-500 transition-colors duration-300" />
+                        )}
+                      </div>
+                      <select
+                        name="brand"
+                        value={formData.brand}
+                        onChange={handleInputChange}
+                        className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-100 rounded-xl
+                                 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50
+                                 transition-all duration-300 outline-none text-gray-700
+                                 hover:border-blue-200 shadow-sm appearance-none cursor-pointer
+                                 text-base font-medium"
+                        required
+                      >
+                        <option value="">Select Brand</option>
+                        {VEHICLE_DATA.map(brand => (
+                          <option key={brand.brand} value={brand.brand}>{brand.brand}</option>
+                        ))}
+                      </select>
+                      <div className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
+                        <ChevronDown className="h-5 w-5 text-gray-400" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="relative">
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      Select Model
+                    </label>
+                    <div className="relative group">
+                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <Bike className="h-5 w-5 text-gray-400 group-hover:text-blue-500 transition-colors duration-300" />
+                      </div>
+                      <select
+                        name="model"
+                        value={formData.model}
+                        onChange={handleInputChange}
+                        className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-100 rounded-xl
+                                 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50
+                                 transition-all duration-300 outline-none text-gray-700
+                                 hover:border-blue-200 shadow-sm appearance-none cursor-pointer
+                                 text-base font-medium"
+                        required
+                      >
+                        <option value="">Select Model</option>
+                        {models.map(model => (
+                          <option key={model.name} value={model.name}>{model.name}</option>
+                        ))}
+                      </select>
+                      <div className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
+                        <ChevronDown className="h-5 w-5 text-gray-400" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Payment Type Radio Buttons */}
+                <div className="space-y-4">
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Payment Type
+                  </label>
+                  <div className="flex gap-6">
+                    <label className="inline-flex items-center cursor-pointer group">
+                      <input
+                        type="radio"
+                        name="paymentType"
+                        value="cash"
+                        checked={formData.paymentType === 'cash'}
+                        onChange={handleInputChange}
+                        className="form-radio h-5 w-5 text-blue-600 border-2 border-gray-300
+                                 focus:ring-blue-500 cursor-pointer transition-all duration-300"
+                      />
+                      <span className="ml-2 text-gray-700 group-hover:text-blue-600 transition-colors">Cash</span>
+                    </label>
+                    <label className="inline-flex items-center cursor-pointer group">
+                      <input
+                        type="radio"
+                        name="paymentType"
+                        value="loan"
+                        checked={formData.paymentType === 'loan'}
+                        onChange={handleInputChange}
+                        className="form-radio h-5 w-5 text-blue-600 border-2 border-gray-300
+                                 focus:ring-blue-500 cursor-pointer transition-all duration-300"
+                      />
+                      <span className="ml-2 text-gray-700 group-hover:text-blue-600 transition-colors">Loan</span>
+                    </label>
+                  </div>
+                </div>
+
+                {formData.paymentType === 'loan' && (
                   <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                     <div className="relative">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Brand</label>
-                      <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                          <Bike className="h-5 w-5 text-gray-400" />
-                        </div>
-                        <select
-                          name="brand"
-                          value={formData.brand}
-                          onChange={handleInputChange}
-                          className="pl-10 w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
-                          required
-                        >
-                          <option value="">Select Brand</option>
-                          {VEHICLE_DATA.map(brand => (
-                            <option key={brand.brand} value={brand.brand}>{brand.brand}</option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-
-                    <div className="relative">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Model</label>
-                      <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                          <Bike className="h-5 w-5 text-gray-400" />
-                        </div>
-                        <select
-                          name="model"
-                          value={formData.model}
-                          onChange={handleInputChange}
-                          className="pl-10 w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
-                          required
-                        >
-                          <option value="">Select Model</option>
-                          {models.map(model => (
-                            <option key={model.name} value={model.name}>{model.name}</option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Payment Details */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Payment Type</label>
-                    <div className="mt-1 flex gap-4">
-                      <label className="inline-flex items-center">
-                        <input
-                          type="radio"
-                          name="paymentType"
-                          value="cash"
-                          checked={formData.paymentType === 'cash'}
-                          onChange={handleInputChange}
-                          className="form-radio text-indigo-600"
-                        />
-                        <span className="ml-2">Cash</span>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">
+                        Down Payment
                       </label>
-                      <label className="inline-flex items-center">
-                        <input
-                          type="radio"
-                          name="paymentType"
-                          value="loan"
-                          checked={formData.paymentType === 'loan'}
-                          onChange={handleInputChange}
-                          className="form-radio text-indigo-600"
-                        />
-                        <span className="ml-2">Loan</span>
-                      </label>
-                    </div>
-                  </div>
-
-                  {formData.paymentType === 'loan' && (
-                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700">Down Payment</label>
+                      <div className="relative group">
+                        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                          <CreditCard className="h-5 w-5 text-gray-400 group-hover:text-blue-500 transition-colors duration-300" />
+                        </div>
                         <input
                           type="number"
                           name="downPayment"
                           value={formData.downPayment}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          className="w-full pl-12 pr-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl
+                                   focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200
+                                   transition-all duration-300 outline-none text-gray-700
+                                   hover:border-blue-300"
                           min="0"
                           max={selectedModelPrice}
                           required
                         />
                       </div>
+                    </div>
 
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700">Tenure (months)</label>
+                    <div className="relative">
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">
+                        Tenure (months)
+                      </label>
+                      <div className="relative group">
+                        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                          <Calendar className="h-5 w-5 text-gray-400 group-hover:text-blue-500 transition-colors duration-300" />
+                        </div>
                         <select
                           name="tenure"
                           value={formData.tenure}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          className="w-full pl-12 pr-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl
+                                   focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200
+                                   transition-all duration-300 outline-none text-gray-700
+                                   hover:border-blue-300 appearance-none cursor-pointer"
                           required
                         >
                           {TENURE_OPTIONS.map(t => (
                             <option key={t} value={t}>{t} months</option>
                           ))}
                         </select>
+                        <div className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
+                          <ChevronDown className="h-5 w-5 text-gray-400" />
+                        </div>
                       </div>
                     </div>
-                  )}
-                   <div className="space-y-6">
-                    <h2 className="text-xl font-semibold text-gray-900">Exchange Options</h2>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Do you have a vehicle for exchange?
+                  </div>
+                )}
+
+                {/* Exchange Options */}
+                <div className="space-y-6">
+                  <h2 className="text-xl font-semibold text-gray-900">Exchange Options</h2>
+                  <div className="space-y-4">
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      Do you have a vehicle for exchange?
+                    </label>
+                    <div className="flex gap-6">
+                      <label className="inline-flex items-center cursor-pointer group">
+                        <input
+                          type="radio"
+                          name="exchangeVehicle"
+                          value="yes"
+                          checked={formData.exchangeVehicle === 'yes'}
+                          onChange={e => setFormData({...formData, exchangeVehicle: e.target.value as 'yes' | 'no'})}
+                          className="form-radio h-5 w-5 text-blue-600 border-2 border-gray-300
+                                   focus:ring-blue-500 cursor-pointer transition-all duration-300"
+                        />
+                        <span className="ml-2 text-gray-700 group-hover:text-blue-600 transition-colors">Yes</span>
                       </label>
-                      <div className="flex space-x-4">
-                        <label className="inline-flex items-center">
-                          <input
-                            type="radio"
-                            name="exchange"
-                            value="yes"
-                            checked={formData.exchangeVehicle === 'yes'}
-                            onChange={e => setFormData({...formData, exchangeVehicle: e.target.value as 'yes' | 'no'})}
-                            className="form-radio text-blue-600"
-                          />
-                          <span className="ml-2">Yes</span>
-                        </label>
-                        <label className="inline-flex items-center">
-                          <input
-                            type="radio"
-                            name="exchange"
-                            value="no"
-                            checked={formData.exchangeVehicle === 'no'}
-                            onChange={e => setFormData({...formData, exchangeVehicle: e.target.value as 'yes' | 'no'})}
-                            className="form-radio text-blue-600"
-                          />
-                          <span className="ml-2">No</span>
-                        </label>
-                      </div>
+                      <label className="inline-flex items-center cursor-pointer group">
+                        <input
+                          type="radio"
+                          name="exchangeVehicle"
+                          value="no"
+                          checked={formData.exchangeVehicle === 'no'}
+                          onChange={e => setFormData({...formData, exchangeVehicle: e.target.value as 'yes' | 'no'})}
+                          className="form-radio h-5 w-5 text-blue-600 border-2 border-gray-300
+                                   focus:ring-blue-500 cursor-pointer transition-all duration-300"
+                        />
+                        <span className="ml-2 text-gray-700 group-hover:text-blue-600 transition-colors">No</span>
+                      </label>
                     </div>
-                    {formData.exchangeVehicle === 'yes' && (
-                      <div>
-                        <label htmlFor="oldVehicleDetails" className="block text-sm font-medium text-gray-700">
-                          Old Vehicle Details
-                        </label>
+                  </div>
+
+                  {formData.exchangeVehicle === 'yes' && (
+                    <div className="relative">
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">
+                        Old Vehicle Details
+                      </label>
+                      <div className="relative group">
                         <textarea
-                          id="oldVehicleDetails"
+                          name="oldVehicleDetails"
                           rows={3}
                           placeholder="Please provide details of your old vehicle (Brand, Model, Year, Condition)"
-                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                          className="w-full px-4 py-3.5 bg-white border-2 border-gray-100 rounded-xl
+                                   focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50
+                                   transition-all duration-300 outline-none text-gray-700 placeholder-gray-400
+                                   hover:border-blue-200 shadow-sm resize-none
+                                   text-base font-medium"
                           value={formData.oldVehicleDetails}
-                          onChange={e => setFormData({...formData, oldVehicleDetails: e.target.value})}
+                          onChange={handleInputChange}
                         ></textarea>
                       </div>
-                    )}
-                  </div>
-
-                  {/* Quotation Summary with enhanced styling */}
-                  {selectedModelPrice > 0 && (
-                    <motion.div 
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 shadow-sm"
-                    >
-                      <div className="flex items-center justify-center gap-3 mb-4">
-                        <Calculator className="w-6 h-6 text-indigo-600" />
-                        <h2 className="text-xl font-semibold text-gray-900">Quotation Summary</h2>
-                      </div>
-                      <div className="space-y-3">
-                        <p className="text-gray-700">On-Road Price: ₹{selectedModelPrice.toLocaleString()}</p>
-                        {formData.paymentType === 'loan' && formData.downPayment && (
-                          <>
-                            <p className="text-gray-700">Down Payment: ₹{Number(formData.downPayment).toLocaleString()}</p>
-                            <p className="text-gray-700">
-                              Loan Amount: ₹{(selectedModelPrice - Number(formData.downPayment)).toLocaleString()}
-                            </p>
-                            <p className="text-gray-700">Tenure: {formData.tenure} months</p>
-                            <p className="text-xl font-bold text-indigo-600">Monthly EMI: ₹{emi.toLocaleString()}</p>
-                          </>
-                        )}
-                      </div>
-                    </motion.div>
+                    </div>
                   )}
+                </div>
 
-                  {/* Submit Button */}
-                  <div className="flex flex-col sm:flex-row gap-4 justify-between items-center">
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full sm:w-auto group relative flex justify-center py-3 px-6 
-                               bg-blue-600 text-white rounded-lg font-medium
-                               hover:bg-blue-700 focus:outline-none focus:ring-2 
-                               focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300"
-                    >
-                      {isSubmitting ? (
-                        <div className="flex items-center">
-                          <RefreshCw className="animate-spin -ml-1 mr-3 h-5 w-5" />
-                          <span>Processing...</span>
-                        </div>
-                      ) : (
-                        <div className="flex items-center">
-                          <Send className="mr-2 h-5 w-5 transform group-hover:translate-x-1 transition-transform" />
-                          <span>Get Your Quote Now</span>
-                        </div>
+                {/* Quotation Summary with enhanced styling */}
+                {selectedModelPrice > 0 && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 shadow-sm"
+                  >
+                    <div className="flex items-center justify-center gap-3 mb-4">
+                      <Calculator className="w-6 h-6 text-indigo-600" />
+                      <h2 className="text-xl font-semibold text-gray-900">Quotation Summary</h2>
+                    </div>
+                    <div className="space-y-3">
+                      <p className="text-gray-700">On-Road Price: ₹{selectedModelPrice.toLocaleString()}</p>
+                      {formData.paymentType === 'loan' && formData.downPayment && (
+                        <>
+                          <p className="text-gray-700">Down Payment: ₹{Number(formData.downPayment).toLocaleString()}</p>
+                          <p className="text-gray-700">
+                            Loan Amount: ₹{(selectedModelPrice - Number(formData.downPayment)).toLocaleString()}
+                          </p>
+                          <p className="text-gray-700">Tenure: {formData.tenure} months</p>
+                          <p className="text-xl font-bold text-indigo-600">Monthly EMI: ₹{emi.toLocaleString()}</p>
+                        </>
                       )}
-                    </button>
+                    </div>
+                  </motion.div>
+                )}
 
-                    {/* Help Button */}
-                    <Link
-                      to="/contact"
-                      className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors"
-                    >
-                      <HelpCircle className="h-5 w-5" />
-                      <span>Need Help?</span>
-                    </Link>
-                  </div>
+                {/* Form Actions */}
+                <div className="flex flex-col sm:flex-row gap-4 justify-between items-center">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full sm:w-auto group relative flex justify-center py-3 px-6 
+                             bg-blue-600 text-white rounded-lg font-medium
+                             hover:bg-blue-700 focus:outline-none focus:ring-2 
+                             focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300"
+                  >
+                    {isSubmitting ? (
+                      <div className="flex items-center">
+                        <RefreshCw className="animate-spin -ml-1 mr-3 h-5 w-5" />
+                        <span>Processing...</span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center">
+                        <Send className="mr-2 h-5 w-5 transform group-hover:translate-x-1 transition-transform" />
+                        <span>Get Your Quote Now</span>
+                      </div>
+                    )}
+                  </button>
+
+                  <Link
+                    to="/contact"
+                    className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors"
+                  >
+                    <HelpCircle className="h-5 w-5" />
+                    <span>Need Help?</span>
+                  </Link>
                 </div>
               </form>
             </motion.div>
@@ -732,7 +823,7 @@ function App() {
               <p className="text-lg mb-6">Our team is here to help you make the right choice for your dream bike.</p>
               <div className="space-y-4">
                 <Link
-                  to="/contact"
+                  to="tel:+919998303810"
                   className="flex items-center gap-3 bg-white/10 backdrop-blur-sm w-full px-4 py-3 rounded-xl
                            hover:bg-white/20 transition-all duration-300"
                 >

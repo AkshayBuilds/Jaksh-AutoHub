@@ -224,43 +224,43 @@ const featuredBikes = [
 
 const brandHighlights = [
   {
-    brand: "Honda",
-    description: "Honda is a global leader in motorcycle manufacturing, known for its innovative technology, superior performance, and exceptional build quality.",
+    brand: "",
+    description: "A leader in innovation, performance, and craftsmanship in motorcycle manufacturing.",
     image: "/hondalogomain.png"
   },
   {
-    brand: "Hero",
-    description: "Hero MotoCorp is one of the largest two-wheeler manufacturers in the world, renowned for its high-quality, fuel-efficient, and reliable motorcycles and scooters.",
+    brand: "",
+    description: "Renowned for high-quality, fuel-efficient, and reliable two-wheelers.",
     image: "/herocompany.png"
   },
   {
-    brand: "TVS",
-    description: "TVS Motor Company is known for its innovative technology, quality manufacturing, and diverse range of motorcycles and scooters that deliver excellent performance and value.",
+    brand: "",
+    description: "Offers innovative, high-performance motorcycles and scooters with great value.",
     image: "/tvslogo.png"
   },
   {
-    brand: "Suzuki",
-    description: "Suzuki offers a diverse range of motorcycles known for their reliability, performance, and value, catering to both casual riders and enthusiasts.",
+    brand: "",
+    description: " Known for reliable and versatile motorcycles for all rider types.",
     image: "/suzukilogo.png"
   },
   {
-    brand: "Yamaha",
-    description: "Yamaha produces some of the world's most exciting motorcycles, combining cutting-edge technology with stunning design and reliable performance.",
+    brand: "",
+    description: "Crafts advanced, stylish, and dependable motorcycles for thrilling rides.",
     image: "/yamahalogo.png"
   },
   {
-    brand: "Royal Enfield",
-    description: "Royal Enfield is renowned for its classic styling and heritage, producing iconic motorcycles that blend traditional charm with modern engineering.",
+    brand: "",
+    description: "Blends heritage and modern engineering with iconic classic motorcycles.",
     image: "/royalenfieldlogo.png"
   },
   {
-    brand: "Bajaj",
-    description: "Bajaj Auto is one of India's leading motorcycle manufacturers, known for its innovative designs, fuel efficiency, and powerful performance across diverse motorcycle segments.",
+    brand: "",
+    description: "Delivers powerful, efficient, and innovative motorcycles for diverse needs.",
     image: "/bajajlogo.png"
   },
   {
-    brand: "KTM",
-    description: "KTM specializes in producing high-performance motorcycles, known for their aggressive styling, advanced technology, and racing heritage.",
+    brand: "",
+    description: "High-performance motorcycles with bold designs and a racing legacy.",
     image: "/ktmlogo.png"
   }
 ];
@@ -440,15 +440,34 @@ function Home() {
         </div>
       </div>
       {/* Featured Bikes Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gradient-to-br from-gray-50 via-white to-blue-50">
         <div className="container-custom">
-          <h2 className="section-title">Featured Bikes</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Featured Bikes
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Explore our handpicked collection of premium bikes from India's leading manufacturers
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
             {displayedBikes.map((bike) => (
-              <div key={bike.model} className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                key={bike.model}
+                className="group bg-white rounded-2xl shadow-lg hover:shadow-xl 
+                         transition-all duration-300 transform hover:-translate-y-1 overflow-hidden"
+              >
                 <div className="relative h-64">
                   <Swiper
-                    pagination={{ clickable: true }}
+                    pagination={{ 
+                      clickable: true,
+                      dynamicBullets: true,
+                    }}
                     navigation={true}
                     loop={true}
                     modules={[Pagination, Navigation, Autoplay]}
@@ -463,31 +482,40 @@ function Home() {
                       <SwiperSlide key={imgIndex} className="overflow-hidden">
                         <button 
                           onClick={() => setSelectedBike({ model: bike.model, image })}
-                          className="w-full h-full cursor-zoom-in"
+                          className="w-full h-full cursor-zoom-in relative"
                         >
-                          <div className="w-full h-full overflow-hidden group">
+                          <div className="w-full h-full overflow-hidden">
                             <img
                               src={image.url}
                               alt={image.title}
-                              className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
+                              className="w-full h-full object-cover transform group-hover:scale-110 
+                                       transition-transform duration-500"
                             />
-                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent 
+                                          opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                          </div>
+                          <div className="absolute bottom-4 left-4 right-4 text-white text-left
+                                        opacity-0 group-hover:opacity-100 transform translate-y-2 
+                                        group-hover:translate-y-0 transition-all duration-300">
+                            <h3 className="text-lg font-bold truncate">{image.title}</h3>
                           </div>
                         </button>
                       </SwiperSlide>
                     ))}
                   </Swiper>
                 </div>
-                <div className="p-4">
+                <div className="p-6">
                   <Link
                     to={`/products/${bike.model.toLowerCase().replace(' ', '-')}`}
-                    className="text-xl font-bold hover:text-blue-700 transition-colors block text-center"
+                    className="block text-center"
                   >
-                    {bike.model}
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2 hover:text-blue-600 
+                                 transition-colors">{bike.model}</h3>
                   </Link>
                 </div>
-              </div>
+              </motion.div>
             ))}
+
             <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 col-span-full transition-all duration-500 ease-in-out ${
               showAllBikes ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
             }`}>
@@ -537,13 +565,17 @@ function Home() {
               ))}
             </div>
           </div>
-          <div className="text-center mt-8">
+
+          <div className="text-center mt-12">
             <button
               onClick={() => setShowAllBikes(!showAllBikes)}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition duration-300 flex items-center gap-2 mx-auto"
+              className="inline-flex items-center gap-2 px-8 py-3 bg-blue-600 text-white 
+                       rounded-xl font-semibold hover:bg-blue-700 transform hover:scale-105 
+                       transition-all duration-300"
             >
-              {showAllBikes ? 'See Less' : 'See More'}
-              <ArrowRight className={`h-4 w-4 transition-transform duration-300 ${showAllBikes ? 'rotate-180' : ''}`} />
+              {showAllBikes ? 'Show Less' : 'Show More'}
+              <ArrowRight className={`h-5 w-5 transition-transform duration-300 
+                                    ${showAllBikes ? 'rotate-180' : ''}`} />
             </button>
           </div>
         </div>
@@ -671,8 +703,8 @@ function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
                 to="/contact" 
-                className="group flex items-center justify-center gap-2 px-6 py-3 bg-white 
-                         text-blue-600 rounded-lg border-2 border-blue-600 hover:bg-blue-50 
+                className="group flex items-center justify-center gap-2 px-6 py-3 
+                         text-blue-600 rounded-lg border border-blue-600
                          transition-all duration-300 transform hover:scale-105"
               >
                 <MapPin className="w-5 h-5 transition-transform group-hover:-translate-y-1" />
