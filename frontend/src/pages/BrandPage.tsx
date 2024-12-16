@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Filter, SortDesc, ChevronDown, Star, TrendingUp} from 'lucide-react';
+import { Filter, SortDesc, ChevronDown, Gauge, Bike as Engine, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface Motorcycle {
@@ -115,7 +115,7 @@ const brandData = {
         price: '1,03,000',
         category: 'Scooter',
         engineCC: 125,
-        mileage: '40-50',
+        mileage: '50',
         image: '/activa125.png'
       },
       {
@@ -667,6 +667,7 @@ function BrandPage() {
   const [sortBy, setSortBy] = useState('name');
   const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedBike, setSelectedBike] = useState<Motorcycle | null>(null);
 
   const brandInfo = getBrandInfo(brand);
   console.log(brandInfo);
@@ -733,6 +734,10 @@ function BrandPage() {
         brand 
       }
     });
+  };
+
+  const handleQuickView = (motorcycle: Motorcycle) => {
+    setSelectedBike(motorcycle);
   };
 
   if (loading) {
@@ -871,47 +876,78 @@ function BrandPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               key={motorcycle.id}
-              className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300
-                         transform hover:scale-105"
+              className="bg-white rounded-xl shadow-md overflow-hidden group
+                         transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
             >
-              <div className="relative h-48 group">
+              <div className="relative h-48 overflow-hidden">
                 <img 
                   src={motorcycle.images[0]} 
                   alt={motorcycle.model}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-500 
+                             group-hover:scale-110"
                   onClick={() => handleImageClick(motorcycle.images[0])}
                 />
-                {/* Labels for special bikes */}
+                {/* Status badges */}
                 {motorcycle.id === 1 && (
-                  <div className="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full
-                                 text-sm font-medium shadow-lg">
+                  <div className="absolute top-4 right-4 bg-gradient-to-r from-blue-500 to-blue-600 
+                                 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg
+                                 transform -rotate-2">
                     Best Seller
                   </div>
                 )}
+                {/* Quick view button */}
+                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100
+                                   transition-opacity duration-300 flex items-center justify-center">
+                  <button
+                    onClick={() => handleQuickView(motorcycle)}
+                    className="bg-white/90 text-gray-900 px-4 py-2 rounded-lg transform 
+                               translate-y-4 group-hover:translate-y-0 transition-transform
+                               duration-300 hover:bg-white"
+                  >
+                    Quick View
+                  </button>
+                </div>
               </div>
+
               <div className="p-6 space-y-4">
-                <h3 className="text-xl font-semibold mb-2 text-gray-800">{motorcycle.model}</h3>
+                {/* Title and rating */}
+                <div className="space-y-2">
+                  <h3 className="text-xl font-bold text-gray-800 group-hover:text-blue-600
+                                 transition-colors duration-300">
+                    {motorcycle.model}
+                  </h3>
+                </div>
+
+                {/* Price and category */}
                 <div className="flex justify-between items-center">
-                  <span className="text-2xl font-bold text-blue-600">₹{motorcycle.price}</span>
-                  <span className="text-sm font-medium px-3 py-1 bg-blue-100 text-blue-800 rounded-full">
+                  <div className="space-y-1">
+                    <span className="text-sm text-gray-500">Starting from</span>
+                    <div className="text-2xl font-bold text-blue-600">₹{motorcycle.price}</div>
+                  </div>
+                  <span className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm font-medium">
                     {motorcycle.category}
                   </span>
                 </div>
-                <div className="space-y-2 text-sm text-gray-600">
-                  <div className="flex items-center gap-2">
-                    <TrendingUp className="h-4 w-4 text-gray-400" />
+
+                {/* Specs with icons */}
+                <div className="grid grid-cols-2 gap-4 py-4 border-t border-gray-100">
+                  <div className="flex items-center gap-2 text-gray-600">
+                    <Engine className="h-4 w-4 text-gray-400" />
                     <span>{motorcycle.specs.engine}</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Star className="h-4 w-4 text-gray-400" />
+                  <div className="flex items-center gap-2 text-gray-600">
+                    <Gauge className="h-4 w-4 text-gray-400" />
                     <span>{motorcycle.specs.mileage}</span>
                   </div>
                 </div>
+
+                {/* CTA Button */}
                 <button 
                   onClick={() => handleQuotationClick(motorcycle)}
-                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 rounded-lg
-                           hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-md
-                           hover:shadow-lg transform hover:-translate-y-1"
+                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 
+                             rounded-lg transition-all duration-300 transform
+                             group-hover:from-blue-700 group-hover:to-blue-800
+                             hover:shadow-lg hover:-translate-y-0.5"
                 >
                   Get Quotation
                 </button>
@@ -937,6 +973,51 @@ function BrandPage() {
             alt="Enlarged"
             className="max-w-[90%] max-h-[90vh] rounded-lg shadow-2xl"
           />
+        </motion.div>
+      )}
+
+      {/* Quick View Modal */}
+      {selectedBike && (
+        <motion.div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/75"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          onClick={() => setSelectedBike(null)}
+        >
+          <div className="bg-white rounded-xl p-6 max-w-2xl w-full mx-4 relative" onClick={e => e.stopPropagation()}>
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedBike(null)}
+              className="absolute top-4 right-4 p-1 rounded-full hover:bg-gray-100 
+                         transition-colors duration-200"
+            >
+              <X className="h-6 w-6 text-gray-500 hover:text-gray-700" />
+            </button>
+
+            <h2 className="text-2xl font-bold mb-4 pr-8">{selectedBike.model}</h2>
+            <img 
+              src={selectedBike.images[0]} 
+              alt={selectedBike.model}
+              className="w-full h-64 object-cover rounded-lg mb-4"
+            />
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <h3 className="font-semibold">Specifications</h3>
+                <p>Engine: {selectedBike.specs.engine}</p>
+                <p>Mileage: {selectedBike.specs.mileage}</p>
+              </div>
+              <div>
+                <h3 className="font-semibold">Price</h3>
+                <p className="text-xl font-bold text-blue-600">₹{selectedBike.price}</p>
+              </div>
+            </div>
+            <button 
+              onClick={() => handleQuotationClick(selectedBike)}
+              className="mt-6 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+            >
+              Get Quotation
+            </button>
+          </div>
         </motion.div>
       )}
     </div>
