@@ -66,7 +66,7 @@ function Contact() {
             transition={{ duration: 0.6 }}
             className="text-center text-white"
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 mt-5">We're Here to Help!</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 mt-10">We're Here to Help!</h1>
             <p className="text-xl text-blue-100">
               Get in touch with us for any questions about our bikes or services
             </p>
@@ -159,11 +159,8 @@ function Contact() {
                                transition-all duration-300 outline-none text-gray-700
                                hover:border-blue-200 shadow-sm text-base font-medium"
                       required
+                      placeholder="Enter your email address"
                     />
-                    <span className="absolute left-12 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none
-                                   transition-opacity duration-300 peer-focus:opacity-0 peer-valid:opacity-0 text-base">
-                      Enter your email address
-                    </span>
                   </div>
                 </div>
 
@@ -173,7 +170,7 @@ function Contact() {
                   </label>
                   <div className="relative group">
                     <div className="absolute top-3 left-3 pointer-events-none">
-                      <MessageSquare className="h-5 w-5 text-blue-500 opacity-70 group-hover:opacity-100 transition-all duration-300" />
+                      <MessageSquare className="h-5 w-5 mt-2.5 text-blue-500 opacity-70 group-hover:opacity-100 transition-all duration-300" />
                     </div>
                     <textarea
                       rows={4}

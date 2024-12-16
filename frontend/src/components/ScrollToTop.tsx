@@ -8,17 +8,14 @@ function ScrollToTop() {
     // Fade out current page
     document.body.style.opacity = '0';
     
-    // Small delay for fade out effect
+    // Reduced delay from 300ms to 150ms
     setTimeout(() => {
-      // Scroll to top
       window.scrollTo({
         top: 0,
         behavior: 'instant'
       });
-      
-      // Fade in new page
       document.body.style.opacity = '1';
-    }, 300);
+    }, 100); // Reduced timeout
   }, [pathname]);
 
   return null;

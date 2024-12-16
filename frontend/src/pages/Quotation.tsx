@@ -497,11 +497,8 @@ function App() {
                                  hover:border-blue-200 shadow-sm text-base font-medium"
                         required
                         maxLength={10}
+                        placeholder="Enter your phone number"
                       />
-                      <span className="absolute left-12 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none
-                                     transition-opacity duration-300 peer-focus:opacity-0 text-base">
-                        Enter your phone number
-                      </span>
                     </div>
                   </div>
 
@@ -523,11 +520,8 @@ function App() {
                                  transition-all duration-300 outline-none text-gray-700
                                  hover:border-blue-200 shadow-sm text-base font-medium"
                         required
+                        placeholder="Enter your email address"
                       />
-                      <span className="absolute left-12 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none
-                                     transition-opacity duration-300 peer-focus:opacity-0 text-base">
-                        Enter your email address
-                      </span>
                     </div>
                   </div>
 

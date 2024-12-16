@@ -131,7 +131,6 @@ const About: React.FC = () => {
 
       {/* Main Content */}
       <div className="container-custom py-16">
-        {/* Enhanced Statistics Section */}
         <div className="bg-white rounded-xl shadow-lg p-8 mb-16">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -167,13 +166,13 @@ const About: React.FC = () => {
               modules={[Pagination, Navigation, Autoplay]}
               className="py-8 stats-swiper"
             >
-              {stats.map((stat, index) => (
+              {stats.map((stat) => (
                 <SwiperSlide key={stat.label} className="h-auto">
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
-                    className="group relative bg-white rounded-2xl shadow-lg hover:shadow-xl 
+                    className="group relative bg-white rounded-2xl hover:shadow-xl 
                              transition-all duration-300 transform hover:-translate-y-1 overflow-hidden
                              h-full flex flex-col"
                   >
@@ -206,7 +205,7 @@ const About: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative bg-white rounded-2xl shadow-lg hover:shadow-xl 
+                className="group relative bg-white rounded-2xl hover:shadow-xl 
                          transition-all duration-300 transform hover:-translate-y-1 overflow-hidden"
               >
                 <div className="p-6 text-center">
@@ -283,7 +282,7 @@ const About: React.FC = () => {
               modules={[Pagination, Navigation, Autoplay]}
               className="py-8"
             >
-              {visionMissionItems.map((item, index) => (
+              {visionMissionItems.map((item) => (
                 <SwiperSlide key={item.title} className="h-[400px]">
                   <motion.div
                     initial={{ opacity: 0 }}

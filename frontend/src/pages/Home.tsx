@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import HeroSection from '../components/HeroSection';
 import { ArrowRight, DollarSign, CheckCircle, Star, CreditCard, MapPin, FileText } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -224,42 +224,42 @@ const featuredBikes = [
 
 const brandHighlights = [
   {
-    brand: "",
+    brand: "Honda",
     description: "A leader in innovation, performance, and craftsmanship in motorcycle manufacturing.",
     image: "/hondalogomain.png"
   },
   {
-    brand: "",
+    brand: "Hero",
     description: "Renowned for high-quality, fuel-efficient, and reliable two-wheelers.",
     image: "/herocompany.png"
   },
   {
-    brand: "",
+    brand: "TVS",
     description: "Offers innovative, high-performance motorcycles and scooters with great value.",
     image: "/tvslogo.png"
   },
   {
-    brand: "",
+    brand: "Suzuki",
     description: " Known for reliable and versatile motorcycles for all rider types.",
     image: "/suzukilogo.png"
   },
   {
-    brand: "",
+    brand: "Yamaha",
     description: "Crafts advanced, stylish, and dependable motorcycles for thrilling rides.",
     image: "/yamahalogo.png"
   },
   {
-    brand: "",
+    brand: "Royal Enfield",
     description: "Blends heritage and modern engineering with iconic classic motorcycles.",
     image: "/royalenfieldlogo.png"
   },
   {
-    brand: "",
+    brand: "Bajaj",
     description: "Delivers powerful, efficient, and innovative motorcycles for diverse needs.",
     image: "/bajajlogo.png"
   },
   {
-    brand: "",
+    brand: "KTM",
     description: "High-performance motorcycles with bold designs and a racing legacy.",
     image: "/ktmlogo.png"
   }
@@ -269,6 +269,7 @@ function Home() {
   const [showAllBikes, setShowAllBikes] = useState(false);
   const [showAllBrands, setShowAllBrands] = useState(false);
   const [selectedBike, setSelectedBike] = useState<{ model: string; image: BikeImage } | null>(null);
+  const navigate = useNavigate();
 
   // Organize bikes
   const initialBikes = featuredBikes.slice(0, 6); // First 6 bikes
@@ -306,6 +307,57 @@ function Home() {
       gradient: "from-purple-500 to-purple-600"
     }
   ];
+
+  const handleBrandClick = (brandName: string) => {
+    // Fade out
+    document.body.style.opacity = '0';
+    
+    setTimeout(() => {
+      // Navigate and scroll to top
+      navigate(`/products/${brandName.toLowerCase().replace(' ', '-')}`);
+      window.scrollTo({
+        top: 0,
+        behavior: 'instant'
+      });
+      
+      // Fade in
+      document.body.style.opacity = '1';
+    }, 300);
+  };
+
+  const handleBikeClick = (bikeName: string) => {
+    // Fade out
+    document.body.style.opacity = '0';
+    
+    setTimeout(() => {
+      // Navigate and scroll to top
+      navigate(`/products/${bikeName.toLowerCase().replace(' ', '-')}`);
+      window.scrollTo({
+        top: 0,
+        behavior: 'instant'
+      });
+      
+      // Fade in
+      document.body.style.opacity = '1';
+    }, 300);
+  };
+
+  const handleNavigate = (path: string) => {
+    // Fade out
+    document.body.style.opacity = '0';
+    
+    setTimeout(() => {
+      // Navigate and scroll to top
+      navigate(path);
+      window.scrollTo({
+        top: 0,
+        behavior: 'instant'
+      });
+      
+      // Fade in
+      document.body.style.opacity = '1';
+    }, 300);
+  };
 
   return (
     <div>
@@ -510,7 +562,9 @@ function Home() {
                     className="block text-center"
                   >
                     <h3 className="text-2xl font-bold text-gray-900 mb-2 hover:text-blue-600 
-                                 transition-colors">{bike.model}</h3>
+                                 transition-colors" title={bike.model} onClick={() => handleBikeClick(bike.model)}>
+                      {bike.model}
+                    </h3>
                   </Link>
                 </div>
               </motion.div>
@@ -554,12 +608,15 @@ function Home() {
                     </Swiper>
                   </div>
                   <div className="p-4">
-                    <Link
-                      to={`/products/${bike.model.toLowerCase().replace(' ', '-')}`}
-                      className="text-xl font-bold hover:text-blue-700 transition-colors block text-center"
-                    >
+                  <Link
+                    to={`/products/${bike.model.toLowerCase().replace(' ', '-')}`}
+                    className="block text-center"
+                  >
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2 hover:text-blue-600 
+                                 transition-colors" title={bike.model} onClick={() => handleBikeClick(bike.model)}>
                       {bike.model}
-                    </Link>
+                    </h3>
+                  </Link>
                   </div>
                 </div>
               ))}
@@ -587,9 +644,9 @@ function Home() {
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {initialBrands.map((brand) => (
               <div key={brand.brand} className="card overflow-hidden group">
-                <Link
-                  to={`/products/${brand.brand.toLowerCase().replace(' ', '-')}`}
-                  className="block relative h-48 group"
+                <button
+                  onClick={() => handleBrandClick(brand.brand)}
+                  className="block relative h-48 group w-full"
                 >
                   <div className="absolute inset-0 bg-white group-hover:bg-blue-50/80 transition-all duration-300">
                     <img
@@ -599,19 +656,16 @@ function Home() {
                     />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
-                  <h3 className="absolute bottom-4 left-4 text-2xl font-bold text-white opacity-100 group-hover:opacity-0 transition-opacity duration-300">
-                    {brand.brand}
-                  </h3>
-                </Link>
+                </button>
                 <div className="p-4">
                   <p className="text-gray-600">{brand.description}</p>
-                  <Link
-                    to={`/products/${brand.brand.toLowerCase().replace(' ', '-')}`}
+                  <button
+                    onClick={() => handleBrandClick(brand.brand)}
                     className="inline-flex items-center mt-4 text-blue-600 hover:text-blue-700 group/link"
                   >
                     View Collection 
                     <ArrowRight className="h-4 w-4 ml-2 transform group-hover/link:translate-x-1 transition-transform" />
-                  </Link>
+                  </button>
                 </div>
               </div>
             ))}
@@ -621,9 +675,9 @@ function Home() {
             }`}>
               {extraBrands.map((brand) => (
                 <div key={brand.brand} className="card overflow-hidden group">
-                  <Link
-                    to={`/products/${brand.brand.toLowerCase().replace(' ', '-')}`}
-                    className="block relative h-48 group"
+                  <button
+                    onClick={() => handleBrandClick(brand.brand)}
+                    className="block relative h-48 group w-full"
                   >
                     <div className="absolute inset-0 bg-white group-hover:bg-blue-50/80 transition-all duration-300">
                       <img
@@ -636,16 +690,16 @@ function Home() {
                     <h3 className="absolute bottom-4 left-4 text-2xl font-bold text-white opacity-100 group-hover:opacity-0 transition-opacity duration-300">
                       {brand.brand}
                     </h3>
-                  </Link>
+                  </button>
                   <div className="p-4">
                     <p className="text-gray-600">{brand.description}</p>
-                    <Link
-                      to={`/products/${brand.brand.toLowerCase().replace(' ', '-')}`}
+                    <button
+                      onClick={() => handleBrandClick(brand.brand)}
                       className="inline-flex items-center mt-4 text-blue-600 hover:text-blue-700 group/link"
                     >
                       View Collection 
                       <ArrowRight className="h-4 w-4 ml-2 transform group-hover/link:translate-x-1 transition-transform" />
-                    </Link>
+                    </button>
                   </div>
                 </div>
               ))}
@@ -701,25 +755,25 @@ function Home() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link 
-                to="/contact" 
+              <button 
+                onClick={() => handleNavigate('/contact')}
                 className="group flex items-center justify-center gap-2 px-6 py-3 
                          text-blue-600 rounded-lg border border-blue-600
                          transition-all duration-300 transform hover:scale-105"
               >
                 <MapPin className="w-5 h-5 transition-transform group-hover:-translate-y-1" />
                 <span>Visit Showroom</span>
-              </Link>
+              </button>
               
-              <Link 
-                to="/quotation" 
+              <button 
+                onClick={() => handleNavigate('/quotation')}
                 className="group flex items-center justify-center gap-2 px-6 py-3 
                          bg-blue-600 text-white rounded-lg hover:bg-blue-700 
                          transition-all duration-300 transform hover:scale-105"
               >
                 <FileText className="w-5 h-5 transition-transform group-hover:-translate-y-1" />
                 <span>Get Quotation</span>
-              </Link>
+              </button>
             </div>
           </div>
         </motion.div>
@@ -796,6 +850,7 @@ function Home() {
 
             <Link 
               to="/about" 
+              onClick={() => handleNavigate('/about')}
               className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-600 
                        rounded-lg hover:bg-blue-50 transition-all duration-300 transform hover:scale-105"
             >

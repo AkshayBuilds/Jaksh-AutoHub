@@ -190,7 +190,7 @@ function Footer() {
         <button
           onClick={scrollToTop}
           className="fixed bottom-8 right-8 bg-blue-600 text-white p-3 rounded-full shadow-lg 
-                   hover:bg-blue-700 transition-all duration-300 transform hover:scale-110"
+                   hover:bg-blue-700 transition-all duration-300 transform hover:scale-110 z-50"
         >
           <ArrowUp className="h-6 w-6" />
         </button>

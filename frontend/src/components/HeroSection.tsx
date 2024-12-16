@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, ChevronDown } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 function HeroSection() {
+  const navigate = useNavigate();
+
   const backgrounds = [
     "url('/herosec2.webp')",
     "url('/herosec1.webp')",
@@ -20,6 +22,23 @@ function HeroSection() {
 
     return () => clearInterval(interval);
   }, []);
+
+  const handleClick = (path: string) => {
+    // Fade out
+    document.body.style.opacity = '0';
+    
+    setTimeout(() => {
+      // Navigate and scroll to top
+      navigate(path);
+      window.scrollTo({
+        top: 0,
+        behavior: 'instant'
+      });
+      
+      // Fade in
+      document.body.style.opacity = '1';
+    }, 300);
+  };
 
   return (
     <div className="relative h-[90vh] sm:h-[80vh] min-h-[600px] bg-gray-900">
@@ -47,7 +66,7 @@ function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight
-                     tracking-tight drop-shadow-lg"
+                     tracking-tight drop-shadow-lg mt-20 sm:mt-0"
           >
             Your Trusted Multibrand
             <span className="text-blue-500"> Two-Wheeler </span>
@@ -72,8 +91,8 @@ function HeroSection() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="flex flex-col sm:flex-row gap-4 justify-center sm:justify-start"
           >
-            <Link 
-              to="/products" 
+            <button 
+              onClick={() => handleClick('/products')}
               className="group flex items-center justify-center gap-2 px-8 py-4 
                        bg-blue-600 text-white rounded-lg hover:bg-blue-700 
                        transition-all duration-300 transform hover:scale-105 text-lg
@@ -81,9 +100,10 @@ function HeroSection() {
             >
               <span>Explore Collection</span>
               <ArrowRight className="h-5 w-5 transform group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <Link 
-              to="/quotation" 
+            </button>
+
+            <button 
+              onClick={() => handleClick('/quotation')}
               className="group flex items-center justify-center gap-2 px-8 py-4 
                        bg-white/10 backdrop-blur-sm text-white rounded-lg 
                        hover:bg-white/20 transition-all duration-300 
@@ -92,7 +112,7 @@ function HeroSection() {
             >
               <span>Get Quote</span>
               <ArrowRight className="h-5 w-5 transform group-hover:translate-x-1 transition-transform" />
-            </Link>
+            </button>
           </motion.div>
 
           {/* Background Indicators */}
