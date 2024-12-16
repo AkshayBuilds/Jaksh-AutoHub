@@ -341,23 +341,6 @@ function Home() {
     }, 300);
   };
 
-  const handleNavigate = (path: string) => {
-    // Fade out
-    document.body.style.opacity = '0';
-    
-    setTimeout(() => {
-      // Navigate and scroll to top
-      navigate(path);
-      window.scrollTo({
-        top: 0,
-        behavior: 'instant'
-      });
-      
-      // Fade in
-      document.body.style.opacity = '1';
-    }, 300);
-  };
-
   return (
     <div>
       <HeroSection />
@@ -754,25 +737,25 @@ function Home() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button 
-                onClick={() => handleNavigate('/contact')}
+              <Link 
+                to="/contact" 
                 className="group flex items-center justify-center gap-2 px-6 py-3 
                          text-blue-600 rounded-lg border border-blue-600
                          transition-all duration-300 transform hover:scale-105"
               >
                 <MapPin className="w-5 h-5 transition-transform group-hover:-translate-y-1" />
                 <span>Visit Showroom</span>
-              </button>
+              </Link>
               
-              <button 
-                onClick={() => handleNavigate('/quotation')}
+              <Link 
+                to="/quotation" 
                 className="group flex items-center justify-center gap-2 px-6 py-3 
                          bg-blue-600 text-white rounded-lg hover:bg-blue-700 
                          transition-all duration-300 transform hover:scale-105"
               >
                 <FileText className="w-5 h-5 transition-transform group-hover:-translate-y-1" />
                 <span>Get Quotation</span>
-              </button>
+              </Link>
             </div>
           </div>
         </motion.div>
@@ -849,7 +832,6 @@ function Home() {
 
             <Link 
               to="/about" 
-              onClick={() => handleNavigate('/about')}
               className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-600 
                        rounded-lg hover:bg-blue-50 transition-all duration-300 transform hover:scale-105"
             >
