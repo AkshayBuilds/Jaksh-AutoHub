@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import HeroSection from '../components/HeroSection';
 import { ArrowRight, DollarSign, CheckCircle, Star, CreditCard, MapPin, FileText } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -7,7 +7,6 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Pagination, Navigation, Autoplay } from 'swiper/modules';
-import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import BikePreviewModal from '../components/BikePreviewModal';
 

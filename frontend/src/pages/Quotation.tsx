@@ -315,7 +315,6 @@ function App() {
   const [models, setModels] = useState<{ name: string; price: number }[]>([]);
   const [selectedModelPrice, setSelectedModelPrice] = useState<number>(0);
   const [emi, setEmi] = useState<number>(0);
-  const [loading, setLoading] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
@@ -491,7 +490,7 @@ function App() {
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        className="peer w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-100 rounded-xl
+                        className="peer w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-100 roundedi cnat s-xl
                                  focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50
                                  transition-all duration-300 outline-none text-gray-700
                                  hover:border-blue-200 shadow-sm text-base font-medium"

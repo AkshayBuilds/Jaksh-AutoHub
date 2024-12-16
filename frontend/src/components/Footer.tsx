@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Bike,
@@ -7,10 +6,8 @@ import {
   MapPin,
   MessageCircle,
   Instagram,
-  Youtube,
   Clock,
   ArrowUp,
-  ExternalLink
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 

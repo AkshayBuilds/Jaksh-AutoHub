@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Filter, SortDesc, ChevronDown, Star, TrendingUp, Award } from 'lucide-react';
+import { Filter, SortDesc, ChevronDown, Star, TrendingUp} from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface Motorcycle {

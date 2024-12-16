@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, ChevronDown, Phone, Calculator } from 'lucide-react';
 
@@ -19,7 +19,6 @@ function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const isBrandPage = location.pathname.includes('/products');
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const toggleBrands = () => setShowBrands(!showBrands);
