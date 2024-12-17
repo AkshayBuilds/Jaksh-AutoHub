@@ -37,14 +37,6 @@ class QuotationForm(BaseModel):
     old_vehicle_details: str
     exchange_vehicle: str
     
-@app.get("/")
-def read_root():
-    return {"message": "Welcome to Siddhivinayak Backend"}
-
-@app.get("/hello")
-def read_root():
-    return {"message": "hello from akshay"}
-
 @app.post("/api/contact")
 async def send_contact_email(contact: ContactForm):
     try:
