@@ -7,10 +7,10 @@ function HeroSection() {
   const navigate = useNavigate();
 
   const backgrounds = [
-    "url('/herosec2.webp')",
-    "url('/herosec1.webp')",
-    "url('/herosec3.webp')", 
-    "url('/herosec4.webp')",
+    "url('/herosec2.jpg')",
+    "url('/herosec1.jpg')",
+    "url('/herosec3.jpg')", 
+    "url('/herosec4.jpg')",
   ];
 
   const [currentBg, setCurrentBg] = useState(0);
