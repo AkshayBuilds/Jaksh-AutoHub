@@ -1,5 +1,4 @@
 import React from 'react';
-import { X } from 'lucide-react';
 
 interface BikePreviewModalProps {
   isOpen: boolean;
@@ -25,13 +24,6 @@ const BikePreviewModal: React.FC<BikePreviewModalProps> = ({ isOpen, onClose, bi
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
       <div className="relative w-full max-w-2xl bg-white rounded-xl shadow-2xl transform transition-all">
-        <button
-          onClick={onClose}
-          className="absolute right-4 top-4 text-gray-500 hover:text-gray-700 transition-colors"
-        >
-          <X className="h-6 w-6" />
-        </button>
-        
         <div className="p-6">
           <div className="aspect-video relative overflow-hidden rounded-lg mb-6">
             <img
