@@ -184,7 +184,7 @@ export const brandData = {
           price: '1,00,799',
           category: 'Scooter',
           engineCC: 125,
-          mileage: '60-70',
+          mileage: '60',
           image: '/jupiter125.png'
         },
         {

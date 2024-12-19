@@ -143,10 +143,10 @@ function BrandPage() {
 
   const handleQuotationClick = (motorcycle: Motorcycle) => {
     // Navigate to quotation page with state
-    navigate(`/Quotation`, { 
-      state: { 
-        model: motorcycle.model, 
-        brand 
+    navigate(`/Quotation`, {
+      state: {
+        model: motorcycle.model,
+        brand
       }
     });
   };
@@ -158,42 +158,45 @@ function BrandPage() {
   return (
     <div className="bg-gray-50">
       {/* Enhanced Hero Section */}
-      <div className="relative h-[50vh] min-h-[400px]">
-        <div 
+      <div className="relative h-[50vh] min-h-[400px] sm:h-[50vh] min-h-[300px]">
+        <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: `url(${brandData[brand].logo})`,
           }}
         />
-        <div 
-          className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"
-        >
-          <motion.div 
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent">
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="container-custom h-full flex flex-col justify-center"
+            className="container-custom h-full flex flex-col justify-center px-4 sm:px-8"
           >
-            <div className="text-white max-w-2xl space-y-6 mt-20">
-              <h1 className="text-5xl font-bold mb-4 leading-tight">
+            <div className="text-white space-y-6 mt-10 sm:mt-20">
+              <h1 className="text-3xl sm:text-5xl font-bold mb-4 mt-10 leading-tight text-center sm:text-left sm:mt-0">
                 {brand.toUpperCase()} <span className="text-blue-500">Motorcycles</span>
               </h1>
-              <p className="text-xl text-gray-200">{brandData[brand].description}</p>
-              <p className="text-lg font-medium text-blue-400 italic">
+              <p className="text-lg sm:text-xl text-gray-200 text-center sm:text-left">
+                {brandData[brand].description}
+              </p>
+              <p className="text-base sm:text-lg font-medium text-blue-400 italic text-center sm:text-left">
                 Experience the Power of Performance
               </p>
-              <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
-                Explore All Models
-              </button>
+              <div className="flex justify-center sm:justify-start">
+                <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 sm:px-8 sm:py-3 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
+                  Explore All Models
+                </button>
+              </div>
             </div>
           </motion.div>
         </div>
       </div>
 
+
       {/* Enhanced Filters and Products */}
       <div className="container-custom py-12">
         {/* Styled Filters */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="bg-white rounded-xl shadow-lg p-4 md:p-6 mb-8"
@@ -204,11 +207,11 @@ function BrandPage() {
               <Filter className="h-5 w-5 text-blue-500" />
               <span className="font-medium">Filters:</span>
             </div>
-            
+
             <div className="flex flex-col md:flex-row gap-4 md:gap-6 flex-grow">
               {/* Enhanced Category Filter */}
               <div className="relative group flex-1">
-                <select 
+                <select
                   className="w-full appearance-none bg-gray-50 border border-gray-300 rounded-lg py-3 px-4 md:px-6 pr-10
                            focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300
                            hover:border-blue-500 group-hover:border-blue-500"
@@ -225,7 +228,7 @@ function BrandPage() {
 
               {/* Enhanced Price Range Filter */}
               <div className="relative group flex-1">
-                <select 
+                <select
                   className="w-full appearance-none bg-gray-50 border border-gray-300 rounded-lg py-3 px-4 md:px-6 pr-10
                            focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300
                            hover:border-blue-500 group-hover:border-blue-500"
@@ -246,7 +249,7 @@ function BrandPage() {
                   <SortDesc className="h-5 w-5 text-blue-500" />
                   <span className="text-sm text-gray-600">Sort by:</span>
                 </div>
-                <select 
+                <select
                   className="w-full appearance-none bg-gray-50 border border-gray-300 rounded-lg py-3 px-4 md:px-6 pr-10
                            focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300
                            hover:border-blue-500 group-hover:border-blue-500"
@@ -275,21 +278,13 @@ function BrandPage() {
                          transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
             >
               <div className="relative h-48 overflow-hidden">
-                <img 
-                  src={motorcycle.images[0]} 
+                <img
+                  src={motorcycle.images[0]}
                   alt={motorcycle.model}
                   className="w-full h-full object-cover transition-transform duration-500 
                              group-hover:scale-110"
                   onClick={() => handleImageClick(motorcycle.images[0])}
                 />
-                {/* Status badges */}
-                {motorcycle.id === 1 && (
-                  <div className="absolute top-4 right-4 bg-gradient-to-r from-blue-500 to-blue-600 
-                                 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg
-                                 transform -rotate-2">
-                    Best Seller
-                  </div>
-                )}
                 {/* Quick view button */}
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100
                                    transition-opacity duration-300 flex items-center justify-center">
@@ -337,7 +332,7 @@ function BrandPage() {
                 </div>
 
                 {/* CTA Button */}
-                <button 
+                <button
                   onClick={() => handleQuotationClick(motorcycle)}
                   className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 
                              rounded-lg transition-all duration-300 transform
@@ -354,14 +349,14 @@ function BrandPage() {
 
       {/* Enhanced Modal */}
       {selectedImage && (
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75"
           onClick={closeModal}
         >
-          <motion.img 
+          <motion.img
             initial={{ scale: 0.5 }}
             animate={{ scale: 1 }}
             src={selectedImage}
@@ -373,7 +368,7 @@ function BrandPage() {
 
       {/* Quick View Modal */}
       {selectedBike && (
-        <motion.div 
+        <motion.div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/75"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -390,8 +385,8 @@ function BrandPage() {
             </button>
 
             <h2 className="text-2xl font-bold mb-4 pr-8">{selectedBike.model}</h2>
-            <img 
-              src={selectedBike.images[0]} 
+            <img
+              src={selectedBike.images[0]}
               alt={selectedBike.model}
               className="w-full h-64 object-cover rounded-lg mb-4"
             />
@@ -406,7 +401,7 @@ function BrandPage() {
                 <p className="text-xl font-bold text-blue-600">₹{selectedBike.price}</p>
               </div>
             </div>
-            <button 
+            <button
               onClick={() => handleQuotationClick(selectedBike)}
               className="mt-6 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
             >

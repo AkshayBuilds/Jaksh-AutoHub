@@ -7,7 +7,7 @@ export default defineConfig({
     outDir: 'dist',
   },
   server: {
-    port: 443,
+    port: 5153,
   },
   base: '/',
 });
