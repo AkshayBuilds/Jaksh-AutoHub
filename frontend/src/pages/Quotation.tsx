@@ -114,19 +114,28 @@ function App() {
         exchange_vehicle: formData.exchangeVehicle
       };
 
-      const response = await fetch(`https://sidhhivinayak-backend.vercel.app/api/quotation`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify(processedFormData)
-      });
+      const urls = [
+        'https://sidhhivinayak-backend.vercel.app/api/quotation',
+        'https://sidhhivinayak.netlify.app/api/quotation',
+      ];
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.detail || "Failed to send quotation");
-      }      
+      // Loop through each URL and send requests
+      for (const url of urls) {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify(processedFormData)
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.detail || "Failed to send quotation");
+        }
+      }
+
       // Reset form to initial state after successful submission
       setFormData(initialFormData);
       setSelectedModelPrice(0);
