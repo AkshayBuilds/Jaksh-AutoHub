@@ -2,12 +2,23 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi_mail import FastMail, MessageSchema, MessageType
 from pydantic import BaseModel, EmailStr
-from mangum import Mangum
-import os
-from dotenv import load_dotenv
-from fastapi_mail import ConnectionConfig
+from .config import email_conf
+from .schemas.Quotation import QuotationForm
 
-# Move these classes to separate files if you want
+
+app = FastAPI()
+# Configure CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://sidhhivinayak.vercel.app",  # Development
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 class ContactForm(BaseModel):
     name: str
     phone: str
@@ -25,39 +36,7 @@ class QuotationForm(BaseModel):
     tenure: int
     old_vehicle_details: str
     exchange_vehicle: str
-
-# Remove the relative imports
-load_dotenv()
-
-# Move email config here
-email_conf = ConnectionConfig(
-    MAIL_USERNAME=os.getenv("MAIL_USERNAME"),
-    MAIL_PASSWORD=os.getenv("MAIL_PASSWORD"),
-    MAIL_FROM=os.getenv("MAIL_FROM"),
-    MAIL_PORT=587,
-    MAIL_SERVER="smtp.gmail.com",
-    MAIL_STARTTLS=True,
-    MAIL_SSL_TLS=False,
-    USE_CREDENTIALS=True,
-    VALIDATE_CERTS=True
-)
-
-app = FastAPI()
-handler = Mangum(app)
-
-# Configure CORS - Fix the trailing slash in URLs
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
-        "https://sidhhivinayak.vercel.app",
-        "https://sidhhivinayak.netlify.app",  # Remove trailing slash
-        "http://localhost:5173"
-    ],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
+    
 @app.get("/")
 def read_root():
     return {"message": "Welcome to Siddhivinayak Backend"}
@@ -66,7 +45,7 @@ def read_root():
 def read_root():
     return {"message": "hello from akshay"}
 
-@app.post("/contact")
+@app.post("/api/contact")
 async def send_contact_email(contact: ContactForm):
     try:
         # Email to admin (you)
@@ -115,7 +94,7 @@ async def send_contact_email(contact: ContactForm):
         raise HTTPException(status_code=500, detail=str(e))
  
  
-@app.post("/quotation")
+@app.post("/api/quotation")
 async def submit_quotation(quotation: QuotationForm):
     try:
         # Email to admin
