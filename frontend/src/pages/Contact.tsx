@@ -4,6 +4,7 @@ import {
   Send, ExternalLink, MessageCircle, Star, RefreshCw 
 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { API_BASE_URL } from '../api/config';
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -20,7 +21,7 @@ function Contact() {
     setStatus('loading');
     
     try {
-      const response = await fetch(`https://sidhhivinayak-backend.vercel.app/api/contact`,{
+      const response = await fetch(`${API_BASE_URL}/api/contact`,{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
