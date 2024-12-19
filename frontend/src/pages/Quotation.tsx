@@ -110,32 +110,28 @@ function App() {
         payment_type: formData.paymentType,
         down_payment: Number(formData.downPayment) || 0,
         tenure: Number(formData.tenure),
-        old_vehicle_details: formData.oldVehicleDetails,
-        exchange_vehicle: formData.exchangeVehicle
+        exchange_vehicle: formData.exchangeVehicle || 'no',
+        old_vehicle_details: formData.oldVehicleDetails || 'None'
       };
 
-      const response = await fetch(`https://sidhhivinayak-backend.vercel.app/api/quotation`,{
+      const response = await fetch(`https://sidhhivinayak-backend.vercel.app/api/quotation`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          'Accept': 'application/json',
         },
         body: JSON.stringify(processedFormData)
       });
 
-
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.detail || "Failed to send quotation");
-      }      
-      // Reset form to initial state after successful submission
+      }
+
+      alert("Quotation sent successfully!");
       setFormData(initialFormData);
-      setSelectedModelPrice(0);
-      setEmi(0);
-      setModels([]);
       
     } catch (error) {
-      console.error('Full error:', error);
+      console.error('Error:', error);
       alert(error instanceof Error ? error.message : "Error sending quotation!");
     } finally {
       setIsSubmitting(false);
