@@ -12,8 +12,6 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://sidhhivinayak.vercel.app",
-        "https://sidhhivinayak.netlify.app",
-        "http://localhost:5173",
     ],
     allow_credentials=True,
     allow_methods=["*"],
