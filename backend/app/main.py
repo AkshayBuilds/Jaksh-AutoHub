@@ -2,16 +2,23 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi_mail import FastMail, MessageSchema, MessageType
 from pydantic import BaseModel, EmailStr
+from mangum import Mangum
 from .config import email_conf
 from .schemas.Quotation import QuotationForm
 
 
 app = FastAPI()
-# Configure CORS
+
+# Add this for AWS Lambda/Vercel compatibility
+handler = Mangum(app)
+
+# Configure CORS - Fix the trailing slash in URLs
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://sidhhivinayak-backend.vercel.app",  # Development
+        "https://sidhhivinayak.vercel.app",
+        "https://sidhhivinayak.netlify.app",  # Remove trailing slash
+        "http://localhost:5173"
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -45,7 +52,7 @@ def read_root():
 def read_root():
     return {"message": "hello from akshay"}
 
-@app.post("/api/contact")
+@app.post("/contact")
 async def send_contact_email(contact: ContactForm):
     try:
         # Email to admin (you)
@@ -94,7 +101,7 @@ async def send_contact_email(contact: ContactForm):
         raise HTTPException(status_code=500, detail=str(e))
  
  
-@app.post("/api/quotation")
+@app.post("/quotation")
 async def submit_quotation(quotation: QuotationForm):
     try:
         # Email to admin
