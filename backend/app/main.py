@@ -12,6 +12,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://sidhhivinayak.vercel.app",
+        "https://sidhhivinayak.netlify.app/",
+        "http://localhost:5173"  # Development
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -36,6 +38,10 @@ class QuotationForm(BaseModel):
     tenure: int
     old_vehicle_details: str
     exchange_vehicle: str
+
+@app.get("/")
+async def test():
+    return {"message": "Hello, World!"}
 
 @app.post("/api/contact")
 async def send_contact_email(contact: ContactForm):
