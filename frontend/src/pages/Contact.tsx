@@ -4,7 +4,6 @@ import {
   Send, ExternalLink, MessageCircle, Star, RefreshCw 
 } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { API_BASE_URL } from '../api/config';
 
 function Contact() {
   const [formData, setFormData] = useState({

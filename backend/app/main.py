@@ -11,7 +11,10 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://sidhhivinayak.vercel.app",  # Development
+        "http://localhost:5173",  # Local development
+        "https://sidhhivinayak.vercel.app",  # Production frontend
+        "https://sidhhivinayak-backend.vercel.app",  # Production backend
+        "*"  # Temporarily allow all origins for testing
     ],
     allow_credentials=True,
     allow_methods=["*"],
