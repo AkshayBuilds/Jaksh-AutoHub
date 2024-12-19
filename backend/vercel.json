@@ -11,5 +11,10 @@
         "src": "/(.*)",
         "dest": "app/main.py"
       }
-    ]
+    ],
+    "env": {
+        "MAIL_USERNAME": "amsp604@gmail.com",
+        "MAIL_PASSWORD": "iwyrfxmnssfkagfq",
+        "MAIL_FROM": "amsp604@gmail.com"
+    }
   }
