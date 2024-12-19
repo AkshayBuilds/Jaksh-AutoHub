@@ -6,7 +6,6 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { API_BASE_URL } from '../api/config';
 // Constants
 const INTEREST_RATE = 10.99;
 const TENURE_OPTIONS = [3, 6, 12, 18, 24, 30, 36];
@@ -115,7 +114,7 @@ function App() {
         exchange_vehicle: formData.exchangeVehicle
       };
 
-      const response = await fetch(`${API_BASE_URL}/api/quotation`,{
+      const response = await fetch(`https://sidhhivinayak-backend.vercel.app/api/quotation`,{
         method: "POST",
         headers: {
           "Content-Type": "application/json",
