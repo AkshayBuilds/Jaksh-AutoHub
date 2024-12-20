@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { VEHICLE_DATA } from '../data/Quotation'; // Import the vehicle data
 import {
   User, Phone, Mail, Bike, CreditCard, Calculator,
-  Calendar, RefreshCw, HelpCircle, Send, MessageCircle, ArrowRight, ChevronDown
+  Calendar,HelpCircle, Send, MessageCircle, ArrowRight, ChevronDown
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -132,7 +132,7 @@ function App() {
 
     } catch (error) {
       console.error('Error:', error);
-      alert(error instanceof Error ? error.message : "Error sending quotation!");
+      alert("Wrong email?");
     } finally {
       setIsSubmitting(false);
     }
