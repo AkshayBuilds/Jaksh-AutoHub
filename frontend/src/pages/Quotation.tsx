@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { VEHICLE_DATA } from '../data/Quotation'; // Import the vehicle data
-import { 
-  User, Phone, Mail, Bike, CreditCard, Calculator, 
-  Calendar, RefreshCw, HelpCircle, Send, MessageCircle, ArrowRight, ChevronDown 
+import {
+  User, Phone, Mail, Bike, CreditCard, Calculator,
+  Calendar, RefreshCw, HelpCircle, Send, MessageCircle, ArrowRight, ChevronDown
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -59,7 +59,7 @@ function App() {
     if (formData.brand) {
       const brandData = VEHICLE_DATA.find(v => v.brand === formData.brand);
       setModels(brandData?.models || []);
-      
+
       // Auto-refresh logic
       setTimeout(() => {
       }, 1000); // Adjust the timeout duration as needed
@@ -78,16 +78,16 @@ function App() {
       const principal = selectedModelPrice - Number(formData.downPayment);
       const annualInterestRate = INTEREST_RATE;
       const tenureMonths = Number(formData.tenure);
-      
+
       // Calculate total interest
       const totalInterest = (principal * annualInterestRate * (tenureMonths / 12)) / 100;
-      
+
       // Calculate total amount to be repaid
       const totalAmountToBeRepaid = principal + totalInterest;
-      
+
       // Calculate monthly EMI
       const monthlyEmi = totalAmountToBeRepaid / tenureMonths;
-      
+
       setEmi(Math.round(monthlyEmi));
     }
   }, [formData.downPayment, formData.tenure, selectedModelPrice, formData.paymentType]);
@@ -129,7 +129,7 @@ function App() {
 
       alert("Quotation sent successfully!");
       setFormData(initialFormData);
-      
+
     } catch (error) {
       console.error('Error:', error);
       alert(error instanceof Error ? error.message : "Error sending quotation!");
@@ -142,7 +142,7 @@ function App() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50 py-12 px-4 sm:px-6 lg:px-8 mt-20">
       <div className="max-w-7xl mx-auto">
         {/* Hero Section */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -161,7 +161,7 @@ function App() {
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Left Side - Form */}
           <div className="lg:col-span-2">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -169,18 +169,18 @@ function App() {
             >
               {/* Background Pattern */}
               <div className="absolute inset-0 opacity-5">
-                <div className="absolute inset-0" 
-                     style={{
-                       backgroundImage: 'url("/pattern-bikes.png")',
-                       backgroundSize: '60px 60px',
-                       backgroundRepeat: 'repeat'
-                     }}
+                <div className="absolute inset-0"
+                  style={{
+                    backgroundImage: 'url("/pattern-bikes.png")',
+                    backgroundSize: '60px 60px',
+                    backgroundRepeat: 'repeat'
+                  }}
                 />
               </div>
 
               {/* Form Header */}
               <div className="relative flex items-center justify-center mb-8">
-                <Calculator className="h-14 w-14 text-blue-600"/>
+                <Calculator className="h-14 w-14 text-blue-600" />
               </div>
 
               <form className="relative space-y-8" onSubmit={handleChange} method='post'>
@@ -432,7 +432,7 @@ function App() {
                           name="exchangeVehicle"
                           value="yes"
                           checked={formData.exchangeVehicle === 'yes'}
-                          onChange={e => setFormData({...formData, exchangeVehicle: e.target.value as 'yes' | 'no'})}
+                          onChange={e => setFormData({ ...formData, exchangeVehicle: e.target.value as 'yes' | 'no' })}
                           className="form-radio h-5 w-5 text-blue-600 border-2 border-gray-300
                                    focus:ring-blue-500 cursor-pointer transition-all duration-300"
                         />
@@ -444,7 +444,7 @@ function App() {
                           name="exchangeVehicle"
                           value="no"
                           checked={formData.exchangeVehicle === 'no'}
-                          onChange={e => setFormData({...formData, exchangeVehicle: e.target.value as 'yes' | 'no'})}
+                          onChange={e => setFormData({ ...formData, exchangeVehicle: e.target.value as 'yes' | 'no' })}
                           className="form-radio h-5 w-5 text-blue-600 border-2 border-gray-300
                                    focus:ring-blue-500 cursor-pointer transition-all duration-300"
                         />
@@ -478,7 +478,7 @@ function App() {
 
                 {/* Quotation Summary with enhanced styling */}
                 {selectedModelPrice > 0 && (
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 shadow-sm"
@@ -515,7 +515,11 @@ function App() {
                   >
                     {isSubmitting ? (
                       <div className="flex items-center">
-                        <RefreshCw className="animate-spin -ml-1 mr-3 h-5 w-5" />
+                        <img
+                          src="/loadingbike.gif"
+                          alt="Loading..."
+                          className="h-5 w-11 mr-3 text-white"
+                        />
                         <span>Processing...</span>
                       </div>
                     ) : (
