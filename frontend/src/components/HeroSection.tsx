@@ -8,8 +8,8 @@ function HeroSection() {
 
   const backgrounds = [
     "url('/herosec2.jpg')",
-    "url('/herosec1.jpg')",
-    "url('/herosec3.jpg')", 
+    "url('/herosec3.jpg')",
+    "url('/herosec1.jpg')", 
     "url('/herosec4.jpg')",
   ];
 
