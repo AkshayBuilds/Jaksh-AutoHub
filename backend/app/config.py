@@ -9,9 +9,9 @@ load_dotenv()
 @lru_cache()
 def get_email_config():
     return ConnectionConfig(
-        MAIL_USERNAME="amsp604@gmail.com",
-        MAIL_PASSWORD="iwyrfxmnssfkagfq",
-        MAIL_FROM="amsp604@gmail.com",
+        MAIL_USERNAME="amsp33478@gmail.com",
+        MAIL_PASSWORD="gmqokenlubnuloer",
+        MAIL_FROM="amsp33478@gmail.com",
         MAIL_PORT=587,
         MAIL_SERVER="smtp.gmail.com",
         MAIL_STARTTLS=True,

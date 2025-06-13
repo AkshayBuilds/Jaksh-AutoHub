@@ -54,7 +54,7 @@ async def send_contact_email(contact: ContactForm):
         # Email to admin (you)
         admin_message = MessageSchema(
             subject=f"New Contact Form Submission from {contact.name}",
-            recipients=["amsp604@gmail.com"],  # Your email address
+            recipients=["amsp33478@gmail.com"],  # Your email address
             body=f"""
             New contact form submission:
             
@@ -103,7 +103,7 @@ async def submit_quotation(quotation: QuotationForm):
         # Email to admin
         admin_message = MessageSchema(
             subject=f"New Quotation Request from {quotation.name}",
-            recipients=["amsp604@gmail.com"],
+            recipients=["amsp33478@gmail.com"],
             body=f"""
             New quotation request:
             
