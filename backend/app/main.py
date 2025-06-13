@@ -1,9 +1,9 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi_mail import FastMail, MessageSchema, MessageType
 from pydantic import BaseModel, EmailStr
-from config import email_conf
-from schemas.Quotation import QuotationForm
+from .config import email_conf
+from .schemas.Quotation import QuotationForm
 
 
 app = FastAPI()
@@ -12,8 +12,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",  # Local development
-        "https://Jaksh.vercel.app",  # Production frontend
-        "https://Jaksh-backend.vercel.app",  # Production backend
+        "https://sidhhivinayak.vercel.app",  # Production frontend
+        "https://sidhhivinayak-backend.vercel.app",  # Production backend
         "*"  # Temporarily allow all origins for testing
     ],
     allow_credentials=True,
@@ -42,7 +42,7 @@ class QuotationForm(BaseModel):
     
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to Jaksh Backend"}
+    return {"message": "Welcome to Siddhivinayak Backend"}
 
 @app.get("/hello")
 def read_root():
@@ -68,12 +68,12 @@ async def send_contact_email(contact: ContactForm):
 
         # Auto-reply to user
         user_message = MessageSchema(
-            subject="Thank you for contacting Jaksh Auto Hub",
+            subject="Thank you for contacting Siddhivinayak Auto World",
             recipients=[contact.email],  # User's email from the form
             body=f"""
             Dear {contact.name},
 
-            Thank you for contacting Jaksh Auto 
+            Thank you for contacting Siddhivinayak Auto 
             World. We have received your message and will 
             get back to you as soon as possible.
 
@@ -81,7 +81,7 @@ async def send_contact_email(contact: ContactForm):
             {contact.message}
 
             Best regards,
-            Jaksh Auto Hub Team,
+            Siddhivinayak Auto World Team
             """,
             subtype=MessageType.plain
         )
@@ -129,7 +129,7 @@ async def submit_quotation(quotation: QuotationForm):
             Dear {quotation.name},
 
             Thank you for requesting a quotation from 
-            Jaksh Auto Hub. 
+            Siddhivinayak Auto World. 
             
             We have received your request and will get back to 
             you shortly with detailed pricing information.
@@ -140,7 +140,7 @@ async def submit_quotation(quotation: QuotationForm):
             Payment Type: {quotation.payment_type}
 
             Best regards,
-            Jaksh Auto Hub Team
+            Siddhivinayak Auto World Team
             """,
             subtype=MessageType.plain
         )
