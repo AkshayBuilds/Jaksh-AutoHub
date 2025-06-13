@@ -114,7 +114,7 @@ function App() {
         old_vehicle_details: formData.oldVehicleDetails || 'None'
       };
 
-      const response = await fetch(`https://Jaksh-backend.vercel.app/api/quotation`, {
+      const response = await fetch(`https://jaksh-backend.vercel.app/api/quotation`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

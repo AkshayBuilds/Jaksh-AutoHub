@@ -20,7 +20,7 @@ function Contact() {
     setStatus('loading');
     
     try {
-      const response = await fetch(`https://Jaksh-backend.vercel.app/api/contact`,{
+      const response = await fetch(`https://jaksh-backend.vercel.app/api/contact`,{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
