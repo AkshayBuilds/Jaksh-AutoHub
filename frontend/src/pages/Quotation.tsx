@@ -114,7 +114,7 @@ function App() {
         old_vehicle_details: formData.oldVehicleDetails || 'None'
       };
 
-      const response = await fetch(`https://sidhhivinayak-backend.vercel.app/api/quotation`, {
+      const response = await fetch(`https://Jaksh-backend.vercel.app/api/quotation`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -555,19 +555,19 @@ function App() {
               <p className="text-lg mb-6">Our team is here to help you make the right choice for your dream bike.</p>
               <div className="space-y-4">
                 <Link
-                  to="tel:+919998303810"
+                  to="tel:+919558293582"
                   className="flex items-center gap-3 bg-white/10 backdrop-blur-sm w-full px-4 py-3 rounded-xl
                            hover:bg-white/20 transition-all duration-300"
                 >
                   <Phone className="h-5 w-5" />
                   <div className="text-left">
                     <p className="font-semibold">Call Us</p>
-                    <p className="text-sm text-gray-200">+91 9998303810</p>
+                    <p className="text-sm text-gray-200">+91 9558293582</p>
                   </div>
                 </Link>
 
                 <a
-                  href="https://wa.me/+919998303810"
+                  href="https://wa.me/+919558293582"
                   target="_blank"
                   className="flex items-center gap-3 bg-green-500 w-full px-4 py-3 rounded-xl
                            hover:bg-green-600 transition-all duration-300"

@@ -20,7 +20,7 @@ function Contact() {
     setStatus('loading');
     
     try {
-      const response = await fetch(`https://sidhhivinayak-backend.vercel.app/api/contact`,{
+      const response = await fetch(`https://Jaksh-backend.vercel.app/api/contact`,{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -255,7 +255,7 @@ function Contact() {
               <h2 className="text-2xl font-bold mb-6 text-gray-900">Contact Information</h2>
               <div className="space-y-6">
                 <a 
-                  href="tel:+919998303810" 
+                  href="tel:+919558293582" 
                   className="flex items-center space-x-4 p-4 rounded-lg hover:bg-blue-50 transition-colors"
                 >
                   <div className="p-3 bg-blue-100 rounded-full">
@@ -263,12 +263,12 @@ function Contact() {
                   </div>
                   <div>
                     <p className="font-medium text-gray-900">Phone</p>
-                    <p className="text-blue-600">+91 9998303810</p>
+                    <p className="text-blue-600">+91 9558293582</p>
                   </div>
                 </a>
 
                 <a 
-                  href="mailto:sidhhivinayakautoworld@gmail.com"
+                  href="mailto:JakshAuto Hub@gmail.com"
                   className="flex items-start space-x-4 p-4 rounded-lg hover:bg-blue-50 transition-colors"
                 >
                   <div className="p-3 bg-blue-100 rounded-full flex-shrink-0">
@@ -276,7 +276,7 @@ function Contact() {
                   </div>
                   <div className="flex-grow">
                     <p className="font-medium text-gray-900">Email</p>
-                    <p className="text-blue-600 break-all">sidhhivinayakautoworld@gmail.com</p>
+                    <p className="text-blue-600 break-all">Jakshautohub@gmail.com</p>
                   </div>
                 </a>
 
@@ -292,7 +292,7 @@ function Contact() {
                 </div>
 
                 <a 
-                  href="https://maps.app.goo.gl/MRmLnGjDgr9rEVUv8"
+                  href="https://maps.app.goo.gl/wJYhq4zJXDGAi1cPA"
                   target="_blank"
                   className="flex items-start space-x-4 p-4 rounded-lg hover:bg-blue-50 transition-colors"
                 >
@@ -302,9 +302,7 @@ function Contact() {
                   <div>
                     <p className="font-medium text-gray-900">Address</p>
                     <p className="text-gray-600">
-                      G 8,9,10, Shyam Satva Residency, Naroda - Dehgam Rd, 
-                      opp. Hp petrol pump, nr. GEB OFFICE, Vasant Vihar 2, 
-                      Naroda, Ahmedabad. Gujarat - 382330
+                    SHOP-2, SHREEJI RESIDENCY, OPPOSITE BAHUCHAR FARM, KATHWADA ROAD, NARODA, AHMEDABAD-382330.
                     </p>
                     <span className="inline-flex items-center text-blue-600 mt-2 hover:underline">
                       Get Directions
@@ -325,7 +323,7 @@ function Contact() {
               <h3 className="text-xl font-bold mb-4">Quick Contact</h3>
               <div className="space-y-4">
                 <a
-                  href="tel:+919998303810"
+                  href="tel:+919558293582"
                   className="flex items-center gap-3 bg-white/10 w-full px-4 py-3 rounded-xl
                            hover:bg-white/20 transition-all duration-300"
                 >
@@ -334,7 +332,7 @@ function Contact() {
                 </a>
 
                 <a
-                  href="https://wa.me/+919998303810"
+                  href="https://wa.me/+919558293582"
                   target="_blank"
                   className="flex items-center gap-3 bg-green-500 w-full px-4 py-3 rounded-xl
                            hover:bg-green-600 transition-all duration-300"
@@ -353,15 +351,7 @@ function Contact() {
               className="bg-white rounded-2xl shadow-xl overflow-hidden"
             >
               <div className="aspect-w-16 aspect-h-9">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3670.475107654472!2d72.66706527531552!3d23.07969747913379!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e81a1d522f163%3A0x36711c4d11b99bb3!2sSIDHHIVINAYAK%20AUTO%20WORLD!5e0!3m2!1sen!2sin!4v1732263945108!5m2!1sen!2sin"
-                  width="100%"
-                  height="400"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  className="w-full"
-                ></iframe>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29369.6341006175!2d72.65648742891698!3d23.05297180439442!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e877b1122b303%3A0x8d1edcf04c7931d2!2sShreeji%20residency!5e0!3m2!1sen!2sin!4v1749788958187!5m2!1sen!2sin" width="600" height="450" style={{border:0}} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
               </div>
               <div className="p-4">
                 <a

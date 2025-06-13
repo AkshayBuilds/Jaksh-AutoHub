@@ -82,7 +82,7 @@ function Navbar() {
           >
             <img
               src="/SV.png"
-              alt="Sidhhivinayak Logo" 
+              alt="Jaksh Logo" 
               className={`transition-all duration-300 object-contain ${
                 scrolled ? 'h-10 w-auto' : 'h-12 w-auto'
               }`}
@@ -91,12 +91,12 @@ function Navbar() {
               <span className={`font-bold leading-tight transition-all duration-300 ${
                 scrolled || isOpen || needsDarkText() ? 'text-gray-900' : 'text-white'
               } ${scrolled ? 'text-lg' : 'text-xl'}`}>
-                SIDHHIVINAYAK
+                Jaksh
               </span>
               <span className={`font-medium leading-tight transition-all duration-300 ${
                 scrolled || isOpen || needsDarkText() ? 'text-gray-900' : 'text-white'
               } ${scrolled ? 'text-sm' : 'text-base'}`}>
-                AUTO WORLD
+                Auto Hub
               </span>
             </div>
           </a>

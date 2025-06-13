@@ -46,7 +46,7 @@ function Footer() {
             >
               <Bike className="h-20 w-20 text-blue-500" />
               <span className="text-xl font-bold text-white">
-                Siddhivinayak Auto World: Your One-Stop Bike Showroom
+                Jaksh Auto Hub: Your One-Stop Bike Showroom
               </span>
             </motion.div>
             <p className="text-sm text-gray-300">
@@ -98,8 +98,8 @@ function Footer() {
                 className="flex items-center space-x-2 group"
               >
                 <Phone className="h-5 w-5 text-blue-500 group-hover:text-blue-400 transition-colors" />
-                <a href="tel:+919998303810" className="hover:text-blue-400 transition-colors">
-                  +91 9998303810
+                <a href="tel:+919558293582" className="hover:text-blue-400 transition-colors">
+                  +91 9558293582
                 </a>
               </motion.li>
               <motion.li
@@ -110,8 +110,8 @@ function Footer() {
                 className="flex items-center space-x-2 group"
               >
                 <Mail className="h-5 w-5 text-blue-500 group-hover:text-blue-400 transition-colors" />
-                <a href="mailto:sidhhivinayakautoworld@gmail.com" className="hover:text-blue-400 transition-colors">
-                  sidhhivinayakautoworld@gmail.com
+                <a href="mailto:Jakshautohub@gmail.com" className="hover:text-blue-400 transition-colors">
+                  Jakshautohub@gmail.com
                 </a>
               </motion.li>
               <motion.li
@@ -124,11 +124,11 @@ function Footer() {
                 <MapPin className="h-5 w-5 text-blue-500 group-hover:text-blue-400 transition-colors flex-shrink-0" />
                 <div className="flex flex-col">
                   <a
-                    href='https://maps.app.goo.gl/MRmLnGjDgr9rEVUv8'
+                    href='https://maps.app.goo.gl/wJYhq4zJXDGAi1cPA'
                     target='_blank'
                     className="hover:text-blue-400 transition-colors flex items-center gap-1"
                   >
-                    G 8,9,10, Shyam Satva Residency, Naroda - Dehgam Rd, opp. Hp petrol pump, nr. GEB OFFICE, Vasant Vihar 2, Naroda, Ahmedabad. Gujarat - 382330
+                    SHOP-2, SHREEJI RESIDENCY, OPPOSITE BAHUCHAR FARM, KATHWADA ROAD, NARODA, AHMEDABAD-382330.
                   </a>
                 </div>
               </motion.li>
@@ -146,14 +146,14 @@ function Footer() {
               className="flex space-x-4"
             >
               <a
-                href="https://wa.me/+919998303810"
+                href="https://wa.me/+919558293582"
                 target='_blank'
                 className="group"
               >
                 <MessageCircle className="h-6 w-6 text-gray-400 group-hover:text-green-500 transform group-hover:scale-110 transition-all" />
               </a>
               <a
-                href="https://www.instagram.com/sidhhivinayak_auto__world/"
+                href="https://www.instagram.com/Jaksh_auto__world/"
                 target='_blank'
                 className="group"
               >
@@ -180,7 +180,7 @@ function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-8 pt-8 text-sm text-center text-gray-400">
-          <p>© {new Date().getFullYear()} Sidhhivinayak Auto World. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Jaksh Auto Hub. All rights reserved.</p>
         </div>
 
         {/* Back to Top Button */}
